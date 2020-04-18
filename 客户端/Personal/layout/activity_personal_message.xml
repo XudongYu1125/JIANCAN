@@ -1,0 +1,77 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    android:background="@color/colorBackground"
+    xmlns:android="http://schemas.android.com/apk/res/android">
+    <LinearLayout
+        android:background="@android:color/white"
+        android:orientation="horizontal"
+        android:id="@+id/ll_change_avatar"
+        android:gravity="center_vertical"
+        android:layout_width="match_parent"
+        android:layout_height="50dp">
+        <TextView
+            android:text="头像"
+            android:paddingLeft="10dp"
+            android:textSize="22dp"
+            android:layout_width="0dp"
+            android:layout_weight="1"
+            android:layout_height="wrap_content" />
+        <ImageView
+            android:layout_marginRight="10dp"
+            android:src="@drawable/default_vatar"
+            android:id="@+id/iv_change_avatar"
+            android:layout_width="40dp"
+            android:layout_height="40dp" />
+    </LinearLayout>
+
+    <LinearLayout
+        android:background="@android:color/white"
+        android:orientation="horizontal"
+        android:gravity="center_vertical"
+        android:layout_marginTop="2dp"
+        android:layout_width="match_parent"
+        android:layout_height="50dp">
+        <TextView
+            android:paddingLeft="10dp"
+            android:text="简餐ID"
+            android:textSize="20dp"
+            android:layout_weight="1"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content" />
+        <TextView
+            android:text="我的ID"
+            android:textSize="20dp"
+            android:id="@+id/tv_my_userid"
+            android:layout_marginRight="20dp"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content" />
+    </LinearLayout>
+    <LinearLayout
+        android:layout_marginTop="2dp"
+        android:background="@android:color/white"
+        android:orientation="horizontal"
+        android:gravity="center_vertical"
+        android:id="@+id/ll_change_name"
+        android:layout_width="match_parent"
+        android:layout_height="50dp">
+        <TextView
+            android:paddingLeft="10dp"
+            android:text="昵称"
+            android:textSize="20dp"
+            android:layout_weight="1"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content" />
+        <TextView
+            android:text="我的昵称"
+            android:textSize="20dp"
+            android:layout_width="wrap_content"
+            android:id="@+id/tv_change_name"
+            android:layout_height="wrap_content" />
+        <ImageView
+            android:src="@drawable/personal_right_arrow"
+            android:layout_width="30dp"
+            android:layout_height="30dp" />
+    </LinearLayout>
+</LinearLayout>
