@@ -1,0 +1,32 @@
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="10dp">
+
+        <ImageView
+            android:id="@+id/con_imgu"
+            android:layout_width="40dp"
+            android:layout_height="40dp"
+            android:onClick="toself"
+            android:src="@color/colorAccent" />
+
+        <TextView
+            android:id="@+id/con_tvu"
+            android:background="#C61A40C4"
+            android:layout_width="300dp"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="6dp"
+            android:layout_marginTop="10dp"
+            android:gravity="center"
+            android:text="嗯嗯，知道了"
+            android:textColor="#FFFFFF"
+            android:textSize="20dp" />
+
+    </LinearLayout>
+
+</LinearLayout>
