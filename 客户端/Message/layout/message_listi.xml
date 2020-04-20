@@ -1,0 +1,34 @@
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="10dp"
+        android:gravity="right">
+
+        <TextView
+            android:id="@+id/con_tvi"
+            android:layout_width="300dp"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="10dp"
+            android:layout_marginRight="6dp"
+            android:background="#C61A40C4"
+            android:gravity="center"
+            android:text="结界，我明天上班想吃大盘鸡，暗示暗示，想要教程！"
+            android:textColor="#FFFFFF"
+            android:textSize="20dp" />
+
+
+        <ImageView
+            android:id="@+id/con_imgi"
+            android:layout_width="40dp"
+            android:layout_height="40dp"
+            android:onClick="toself"
+            android:src="@color/colorAccent" />
+
+    </LinearLayout>
+
+</LinearLayout>
