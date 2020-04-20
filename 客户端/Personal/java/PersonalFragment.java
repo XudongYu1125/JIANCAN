@@ -6,12 +6,18 @@ import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
+
+import com.bumptech.glide.Glide;
+import com.bumptech.glide.request.RequestOptions;
+import com.bumptech.glide.signature.ObjectKey;
+import com.google.gson.Gson;
 
 import static android.content.Context.MODE_PRIVATE;
 
@@ -32,21 +38,23 @@ public class PersonalFragment extends Fragment {
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
         View view = inflater.inflate( R.layout.fragment_personal,container,false );
         findViews(view);
-        sharedPreferences = getActivity().getSharedPreferences("loginInfo", MODE_PRIVATE);
-        user = new Gson().fromJson(sharedPreferences.getString("user", null), User.class);
-        setOnclicked();String time = sharedPreferences.getString("time",null);
-        if (time == null){
-            RequestOptions options = new RequestOptions().error(R.drawable.default_vatar);
+        setOnclicked();
+        //获取和更新个人信息
+//        sharedPreferences = getActivity().getSharedPreferences("loginInfo", MODE_PRIVATE);
+//        user = new Gson().fromJson(sharedPreferences.getString("user", null), User.class);
+//        String time = sharedPreferences.getString("time",null);
+//        if (time == null){
+//            RequestOptions options = new RequestOptions().error(R.drawable.default_vatar);
+////            Glide.with(this)
+////                    .load    .into(imageView);
+//        }else {
+//            RequestOptions options = new RequestOptions().signature(new ObjectKey(time)).error(R.drawable.default_vatar);
 //            Glide.with(this)
-//                    .load    .into(imageView);
-        }else {
-            RequestOptions options = new RequestOptions().signature(new ObjectKey(time)).error(R.drawable.default_vatar);
-            Glide.with(this)
-                    .load(Constant.BASE_URL + "avatarimg/" + user.getImageurl())
-                    .apply(options)
-                    .into(imageView);
-        }
-        textView.setText(user.getNickname().toString());
+//                    .load(Constant.BASE_URL + "avatarimg/" + user.getImageUrl())
+//                    .apply(options)
+//                    .into(imageView);
+//        }
+//        textView.setText(user.getNickname().toString());
         return view;
     }
 
@@ -79,12 +87,16 @@ public class PersonalFragment extends Fragment {
             switch (v.getId()) {
                 case R.id.ll_personal_message:
                     //跳转到修改个人信息界面
+                    Log.e("跳转到","个人信息界面");
                     intent = new Intent();
                     intent.setClass(getContext(),PersonalChangeMessageActivity.class);
                     startActivityForResult(intent,100);
                     break;
                 case R.id.ll_trends:
                     //跳转到用户自己的发布的动态界面
+                    intent = new Intent();
+                    intent.setClass(getContext(),PersonalTrendsListActivity.class);
+                    startActivity(intent);
                     break;
                 case R.id.ll_follow:
                     //跳转到用户的关注列表界面
@@ -107,21 +119,21 @@ public class PersonalFragment extends Fragment {
             }
         }
     }
-    @Override
-    public void onActivityResult(int requestCode, int resultCode, Intent data) {
-        String time = sharedPreferences.getString("time",null);
-        if (time == null){
-            RequestOptions options = new RequestOptions().error(R.drawable.default_vatar);
-            Glide.with(this)
-                    .load(Constant.BASE_URL + "avatarimg/" + user.getImageurl())
-                    .apply(options)
-                    .into(imageView);
-        }else {
-            RequestOptions options = new RequestOptions().signature(new ObjectKey(time)).error(R.drawable.default_vatar);
-            Glide.with(this)
-                    .load(Constant.BASE_URL + "avatarimg/" + user.getImageurl())
-                    .apply(options)
-                    .into(imageView);
-        }
-    }
+//    @Override
+//    public void onActivityResult(int requestCode, int resultCode, Intent data) {
+//        String time = sharedPreferences.getString("time",null);
+//        if (time == null){
+//            RequestOptions options = new RequestOptions().error(R.drawable.default_vatar);
+//            Glide.with(this)
+//                    .load(Constant.BASE_URL + "avatarimg/" + user.getImageUrl())
+//                    .apply(options)
+//                    .into(imageView);
+//        }else {
+//            RequestOptions options = new RequestOptions().signature(new ObjectKey(time)).error(R.drawable.default_vatar);
+//            Glide.with(this)
+//                    .load(Constant.BASE_URL + "avatarimg/" + user.getImageUrl())
+//                    .apply(options)
+//                    .into(imageView);
+//        }
+//    }
 }

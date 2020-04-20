@@ -108,17 +108,17 @@
         <ImageView
             android:layout_marginLeft="25dp"
             android:src="@drawable/personal_historic_records"
-            android:layout_width="30dp"
-            android:layout_height="30dp" />
+            android:layout_width="25dp"
+            android:layout_height="25dp" />
         <TextView
             android:text="历史记录"
             android:layout_marginLeft="20dp"
-            android:textSize="20dp"
+            android:textSize="18dp"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content" />
         <ImageView
             android:src="@drawable/personal_right_arrow"
-            android:layout_marginLeft="160dp"
+            android:layout_marginLeft="180dp"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content" />
     </LinearLayout>
@@ -131,17 +131,17 @@
         <ImageView
             android:layout_marginLeft="25dp"
             android:src="@drawable/personal_collection"
-            android:layout_width="30dp"
-            android:layout_height="30dp" />
+            android:layout_width="25dp"
+            android:layout_height="25dp" />
         <TextView
             android:text="我的收藏"
             android:layout_marginLeft="20dp"
-            android:textSize="20dp"
+            android:textSize="18dp"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content" />
         <ImageView
             android:src="@drawable/personal_right_arrow"
-            android:layout_marginLeft="160dp"
+            android:layout_marginLeft="180dp"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content" />
     </LinearLayout>
@@ -154,17 +154,17 @@
         <ImageView
             android:layout_marginLeft="25dp"
             android:src="@drawable/personal_download"
-            android:layout_width="30dp"
-            android:layout_height="30dp" />
+            android:layout_width="25dp"
+            android:layout_height="25dp" />
         <TextView
             android:text="下载管理"
             android:layout_marginLeft="20dp"
-            android:textSize="20dp"
+            android:textSize="18dp"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content" />
         <ImageView
             android:src="@drawable/personal_right_arrow"
-            android:layout_marginLeft="160dp"
+            android:layout_marginLeft="180dp"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content" />
     </LinearLayout>
@@ -177,17 +177,17 @@
         <ImageView
             android:layout_marginLeft="25dp"
             android:src="@drawable/personal_settings"
-            android:layout_width="30dp"
-            android:layout_height="30dp" />
+            android:layout_width="25dp"
+            android:layout_height="25dp" />
         <TextView
             android:text="设置         "
             android:layout_marginLeft="20dp"
-            android:textSize="20dp"
+            android:textSize="18dp"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content" />
         <ImageView
             android:src="@drawable/personal_right_arrow"
-            android:layout_marginLeft="160dp"
+            android:layout_marginLeft="180dp"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content" />
     </LinearLayout>
