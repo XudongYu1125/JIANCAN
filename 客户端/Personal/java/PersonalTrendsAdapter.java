@@ -5,8 +5,11 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.BaseAdapter;
+import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
+
+import com.bumptech.glide.Glide;
 
 import java.util.List;
 
@@ -51,15 +54,19 @@ public class PersonalTrendsAdapter extends BaseAdapter {
             viewHolder = new ViewHolder();
             viewHolder.tvFoodName = convertView.findViewById(R.id.tv_item_name);
             viewHolder.llTrends = convertView.findViewById(R.id.ll_trends);
+            viewHolder.imageView = convertView.findViewById(R.id.iv_trends_pic);
             convertView.setTag(viewHolder);
         }else {
             viewHolder = (ViewHolder) convertView.getTag();
         }
         viewHolder.tvFoodName.setText(foods.get(position).getName());
+
+        Glide.with(context).load(Constant.BASE_URL +"paperimg/"+ foods.get(position).getImageUrl()).into(viewHolder.imageView);
         return convertView;
     }
     private class ViewHolder{
         public TextView tvFoodName;
         public LinearLayout llTrends;
+        public ImageView imageView;
     }
 }
