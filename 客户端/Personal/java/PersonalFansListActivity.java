@@ -22,28 +22,30 @@ import okhttp3.Request;
 import okhttp3.RequestBody;
 import okhttp3.Response;
 
-public class PersonalTrendsListActivity extends AppCompatActivity {
-    private ListView lvFoods;
-    private PersonalTrendsAdapter adapter;
-    private List<Food> foods = new ArrayList<>();
+public class PersonalFansListActivity extends AppCompatActivity {
+    private ListView lvFans;
+    private PersonalFansAdapter adapter;
+    private List<User> fans = new ArrayList<>();
     private OkHttpClient okHttpClient;
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_personal_trends);
-        Food food = new Food();
-        food.setName("蛋挞");
-        foods.add(food);
+        setContentView(R.layout.activity_personal_fans);
+        User user = new User();
+        user.setNickname("bbbbb");
+        fans.add(user);
         findViews();
+        requestData();
     }
+
     private void findViews() {
-        lvFoods = findViewById(R.id.lv_trends);
-        adapter = new PersonalTrendsAdapter(foods, R.layout.trends_listview_item, PersonalTrendsListActivity.this);
-        lvFoods.setAdapter(adapter);
+        lvFans = findViewById(R.id.lv_fans);
+        adapter = new PersonalFansAdapter(fans, R.layout.followers_listview_item, PersonalFansListActivity.this);
+        lvFans.setAdapter(adapter);
     }
     private void requestData() {
         RequestBody body = RequestBody.create(MediaType.parse("text/plain"),"1");
-        Request request = new Request.Builder().url( Constant.URL_TRENDS).post(body).build();
+        Request request = new Request.Builder().url( Constant.URL_FAN).post(body).build();
         Call call = okHttpClient.newCall(request);
         call.enqueue(new Callback() {
             @Override
@@ -54,10 +56,10 @@ public class PersonalTrendsListActivity extends AppCompatActivity {
 
             @Override
             public void onResponse(Call call, Response response) throws IOException {
-                String foodListStr = response.body().string();
+                String fanListStr = response.body().string();
                 Type type = new TypeToken<List<User>>(){}.getType();
-                foods.addAll((List<Food>) new Gson().fromJson(foodListStr,type));
-                Log.e("fans",foods.toString());
+                fans.addAll((List<User>) new Gson().fromJson(fanListStr,type));
+                Log.e("fans",fans.toString());
             }
         });
     }

@@ -50,7 +50,6 @@ public class PersonalChangeMessageActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_personal_message);
 //        sharedPreferences = getSharedPreferences("loginInfo", MODE_PRIVATE);
-//
 //        user = new Gson().fromJson(sharedPreferences.getString("user", null), User.class);
         findViews();
         setOnclicked();
