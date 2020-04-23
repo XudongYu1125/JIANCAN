@@ -1,8 +1,15 @@
 package com.jiancan.vegetables.food.controller;
 
 import java.io.File;
+import java.io.FileInputStream;
+import java.io.FileOutputStream;
 import java.io.InputStream;
 import java.io.OutputStream;
+import java.text.SimpleDateFormat;
+import java.util.Date;
+import java.util.HashSet;
+import java.util.List;
+import java.util.Set;
 
 import javax.annotation.Resource;
 import javax.servlet.http.HttpServletRequest;
@@ -13,9 +20,12 @@ import org.json.JSONObject;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.multipart.MultipartFile;
+import org.springframework.web.multipart.MultipartHttpServletRequest;
 
 import com.google.gson.Gson;
 import com.jiancan.entity.vegetables.Food;
+import com.jiancan.entity.vegetables.Image;
 import com.jiancan.vegetables.food.service.FoodService;
 
 @Controller
@@ -207,15 +217,73 @@ public class FoodController {
 			Gson gson = new Gson();
 			Food food = gson.fromJson(stringBuffer.toString(), Food.class);
 			
-
-		    String rootPath = request.getServletContext().getRealPath("/");
-		    
+			String time = new SimpleDateFormat("yyyy-MM-dd hh:mm:ss").format(new Date().getTime());
+			food.setUploadDate(time);
 			
-			Part video = request.getPart("video");
-	        video.write(rootPath + "/upload/" + food.getVideosUrl());
+
+		    String rootPath = request.getServletContext().getRealPath(File.separator);
+		    
+		    
+		    List<MultipartFile> images = ((MultipartHttpServletRequest) request).getFiles("images");
+		   
+		    
+		    if(images != null) {
+		    	
+		    	Set<Image> set = new HashSet<Image>();
+		    	
+		    	String filepath = rootPath + File.separator + "upload" + File.separator + "images";
+		    	
+		    	File dest = new File(filepath);
+		    	
+				if (!dest.exists()) {
+					dest.mkdirs();
+				}
+		    	
+		    	for(MultipartFile image : images) {
+		    		
+		    		String fileName = time + "_" + food.getUserId() + "_" + images.indexOf(image) + "_" + image.getOriginalFilename();
+		  
+		    		File file = new File(filepath + File.separator + fileName);
+		    		
+		    		new FileOutputStream(file).write(image.getBytes());
+		    		
+		    		Image i = new Image();
+		    		i.setImageName(fileName);
+		    		
+		    		set.add(i);
+		    		
+		    	}
+		    	
+		    	food.setImages(set);
+		    	
+		    }
+		    
+		    
+		    
+
+	        MultipartFile video = ((MultipartHttpServletRequest) request).getFile("video");
 	        
-	        Part image = request.getPart("image");
-	        image.write(rootPath + "/upload/" + food.getImageUrl());
+	        if(video != null) {
+	        	
+	        	String filepath = rootPath + File.separator + "upload" + File.separator + "videos";
+		    	
+		    	File dest = new File(filepath);
+		    	
+				if (!dest.exists()) {
+					dest.mkdirs();
+				}
+				
+				String fileName = time + "_" + food.getUserId() + "_" + video.getOriginalFilename();
+				
+				File file = new File(filepath + File.separator + fileName);
+	    		
+	    		new FileOutputStream(file).write(video.getBytes());
+	        	
+	    		food.setVideo(fileName);
+	    		
+	        }
+		    
+	 
 	        
 	       
 	        JSONObject res = new JSONObject();

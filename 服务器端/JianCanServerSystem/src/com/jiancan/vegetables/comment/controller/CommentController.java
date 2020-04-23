@@ -7,6 +7,7 @@ import java.io.UnsupportedEncodingException;
 import javax.annotation.Resource;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import javax.validation.Valid;
 
 import org.json.JSONObject;
 import org.springframework.http.converter.json.GsonFactoryBean;
