@@ -1,4 +1,5 @@
-根地址：39.97.3.111：8080/JianCanServerSystem
+﻿根地址：39.97.3.111：8080/JianCanServerSystem
+
 收藏历史记录相关：
     添加收藏：
         地址：/car/ac/{userId}/{foodId}
@@ -18,6 +19,7 @@
     查询历史记录列表：
       地址：/car/fr/{userId}
       说明：传入用户Id，返回0为查询为空，否则返回值为gson形式的foods列表
+	  
 关注粉丝相关：
      获得关注列表：
        地址：/faf/fwl/{userId}
@@ -31,6 +33,8 @@
      取消关注
        地址：/faf/rf/{userId}/{followId}
        说明：传入用户Id和关注Id，返回0为取关失败，否则取关成功
+
+
 用户相关：
      注册用户：
        地址：/user/register/{userGson}
@@ -50,3 +54,74 @@
      上传头像：
        地址：/user/uploada/{imgname}
        说明：/传入imgname，无返回值
+
+
+评论相关：
+
+	 添加评论：
+		地址：/comment/add
+		说明：输出流中传入comment Json串，返回一个comment Json串，若返回null表示添加失败
+		
+	 删除评论：
+		地址：/comment/delete/{Id}
+		说明：请求地址中传入Id，返回一个boolean， 表示删除是否成功
+	
+	 修改评论：
+		地址：/comment/update
+		说明：输出流中传入comment Json串，返回一个boolean， 表示修改是否成功
+	 
+	 通过用户搜索评论：
+	    地址：/comment/getByUser/{userId}
+		说明：请求地址中传入userId，返回属于此用户的comment的list列表 Json串，可能为null
+		
+	 通过食物搜索评论：
+		地址：/comment/getByUser/{foodId}
+		说明：请求地址中传入foodId，返回属于此食物的comment的list列表 Json串，可能为null
+		
+	 
+食物相关：
+
+	 添加食物：
+		地址：/food/add
+		说明：输出流中传入food Json串，返回一个food Json串，若返回null表示添加失败
+		
+	 删除食物：
+		地址：/food/delete/{Id}
+		说明：请求地址中传入Id，返回一个boolean， 表示删除是否成功
+		
+	 修改食物：
+		地址：/food/update
+		说明：输出流中传入food Json串，返回一个boolean， 表示修改是否成功	
+	 
+	 通过用户搜索食物
+		地址：/food/getByUser/{userId}
+		说明：请求地址中传入userId，返回属于此用户的food的list列表 Json串，可能为null
+		
+	 通过食物种类搜索食物
+		地址：/food/getByVegetables/{vegetablesId}
+		说明：请求地址中传入vegetablesId，返回属于此食物种类的food的list列表 Json串，可能为null
+	 
+	 上传食物视频：
+		地址：/food/uploadVideo
+		说明：输入流中传入food Json串，图片文件或视频文件 ，返回一个food Json串，若返回null表示添加失败
+		
+		
+食物种类相关：
+
+	添加食物种类：
+		地址：/vegetables/add
+		说明：输出流中传入vegetables Json串，返回一个vegetables Json串，若返回null表示添加失败
+		
+	 删除食物：
+		地址：/vegetables/delete/{Id}
+		说明：请求地址中传入Id，返回一个boolean， 表示删除是否成功
+		
+	 修改食物：
+		地址：/vegetables/update
+		说明：输出流中传入vegetables Json串，返回一个boolean， 表示修改是否成功
+	
+	 查询所有食物种类
+		地址：/vegetables/getAll
+		说明：返回所有vegetables的一个list， 可能为null
+		
+		
