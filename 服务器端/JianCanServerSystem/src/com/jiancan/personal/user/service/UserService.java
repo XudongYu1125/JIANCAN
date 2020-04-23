@@ -14,8 +14,8 @@ public class UserService {
 	private UserDao userDao;
 	//注册用户
 	//返回0代表注册失败
-	public String addUser(String userJson) {
-		User user = new Gson().fromJson(userJson, User.class);
+	public String addUser(String userGson) {
+		User user = new Gson().fromJson(userGson, User.class);
 		return userDao.insertUser(user)+"";
 	}
 	//注销用户
@@ -25,8 +25,8 @@ public class UserService {
 	}
 	//修改用户信息
 	//返回0代表修改失败
-	public String editUser(String userJson) {
-		User user = new Gson().fromJson(userJson, User.class);
+	public String editUser(String userGson) {
+		User user = new Gson().fromJson(userGson, User.class);
 		return userDao.updateUser(user)+"";
 	}
 	//通过昵称登录
