@@ -23,9 +23,9 @@ public class UserController {
 	@Resource
 	private UserService userService;
 	//注册用户
-	@RequestMapping(value = "/register/{userJson}",method = RequestMethod.GET)
-	public String register(@PathVariable String userJson) {
-		return userService.addUser(userJson);
+	@RequestMapping(value = "/register/{userGson}",method = RequestMethod.GET)
+	public String register(@PathVariable String userGson) {
+		return userService.addUser(userGson);
 	}
 	//注销用户
 	@RequestMapping(value = "/cancel/{id}",method = RequestMethod.GET)
@@ -33,9 +33,9 @@ public class UserController {
 		return userService.removeUser(id);
 	}
 	//修改用户信息
-	@RequestMapping(value = "/edit/{userJson}",method = RequestMethod.GET)
-	public String edit(@PathVariable String userJson) {
-		return userService.editUser(userJson);
+	@RequestMapping(value = "/edit/{userGson}",method = RequestMethod.GET)
+	public String edit(@PathVariable String userGson) {
+		return userService.editUser(userGson);
 	}
 	//通过昵称登录
 	@RequestMapping(value = "/loginbn/{nickname}/{password}",method = RequestMethod.GET)
@@ -48,7 +48,7 @@ public class UserController {
 		return userService.loginByPhone(phone, password);
 	}
 	//上传头像
-	@RequestMapping(value = "/uploada{imgname}",method = RequestMethod.GET)
+	@RequestMapping(value = "/uploada/{imgname}",method = RequestMethod.GET)
 	public void uploadAvatar(@PathVariable String imgname,HttpServletRequest request) throws IOException {
 		String str = request.getServletContext().getRealPath("/avatarimg");
 		System.out.println(str);
