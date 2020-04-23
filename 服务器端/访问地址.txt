@@ -1,0 +1,52 @@
+根地址：39.97.3.111：8080/JianCanServerSystem
+收藏历史记录相关：
+    添加收藏：
+        地址：/car/ac/{userId}/{foodId}
+        说明：传入用户Id和食物Id，返回0为添加失败，否则添加成功
+    删除收藏：
+       地址：/car/rc/{userId}/{foodId}
+       说明：传入用户Id和食物Id，返回0为删除失败，否则删除成功
+    查询收藏列表：
+      地址：/car/fc/{userId}
+      说明：传入用户Id，返回0为查询为空，否则返回值为gson形式的foods列表
+    添加历史记录：
+        地址：/car/ar/{userId}/{foodId}
+        说明：传入用户Id和食物Id，返回0为添加失败，否则添加成功
+    删除历史记录：
+       地址：/car/rr/{userId}/{foodId}
+       说明：传入用户Id和食物Id，返回0为删除失败，否则删除成功
+    查询历史记录列表：
+      地址：/car/fr/{userId}
+      说明：传入用户Id，返回0为查询为空，否则返回值为gson形式的foods列表
+关注粉丝相关：
+     获得关注列表：
+       地址：/faf/fwl/{userId}
+       说明：传入用户Id，返回0为查询为空，否则返回值为gson形式的TUser列表
+     获得粉丝列表：
+       地址：/faf/fsl/{userId}
+       说明：传入用户Id，返回0为查询为空，否则返回值为gson形式的TUser列表
+     添加关注
+       地址：/faf/af/{userId}/{followId}
+       说明：传入用户Id和关注Id，返回0为关注失败，否则关注成功
+     取消关注
+       地址：/faf/rf/{userId}/{followId}
+       说明：传入用户Id和关注Id，返回0为取关失败，否则取关成功
+用户相关：
+     注册用户：
+       地址：/user/register/{userGson}
+       说明：传入Gson形式User对象，返回0为注册失败，否则注册失败
+     注销用户：
+       地址：/user/cancel/{id}
+       说明：传入userId，返回0为注销失败，否则注销成功
+     修改用户：
+       地址：/user/edit/{userGson}
+       说明：传入Gson形式user对象，返回0修改失败，否则修改成功
+     通过昵称登录
+       地址：/user/loginbn/{nickname}/{password}
+       说明：传入昵称和密码，返回0用户不存在，返回1密码错误，否则返回Gson形式User对象
+     通过手机号登录
+       地址：/user/loginbp/{phone}/{password}
+       说明：传入手机号和密码，返回0用户不存在，返回1密码错误，否则返回Gson形式User对象
+     上传头像：
+       地址：/user/uploada/{imgname}
+       说明：/传入imgname，无返回值
