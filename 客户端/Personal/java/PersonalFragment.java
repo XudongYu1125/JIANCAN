@@ -94,15 +94,24 @@ public class PersonalFragment extends Fragment {
                     break;
                 case R.id.ll_trends:
                     //跳转到用户自己的发布的动态界面
+                    Log.e("跳转到","个人动态界面");
                     intent = new Intent();
                     intent.setClass(getContext(),PersonalTrendsListActivity.class);
                     startActivity(intent);
                     break;
                 case R.id.ll_follow:
                     //跳转到用户的关注列表界面
+                    Log.e("跳转到","个人关注列表界面");
+                    intent = new Intent();
+                    intent.setClass(getContext(),PersonalFollowListActivity.class);
+                    startActivity(intent);
                     break;
                 case R.id.ll_fan:
                     //跳转到用户的粉丝列表
+                    Log.e("跳转到","个人粉丝列表界面");
+                    intent = new Intent();
+                    intent.setClass(getContext(),PersonalFansListActivity.class);
+                    startActivity(intent);
                     break;
                 case R.id.ll_histroy:
                     //跳转到用户的历史记录界面
