@@ -5,6 +5,7 @@ import javax.persistence.Entity;
 @Entity
 public class User {
 	private int id;
+	private String sex;
 	private String nickname;
 	private String phone;
 	private String password;
@@ -14,6 +15,12 @@ public class User {
 	}
 	public void setId(int id) {
 		this.id = id;
+	}
+	public String getSex() {
+		return sex;
+	}
+	public void setSex(String sex) {
+		this.sex = sex;
 	}
 	public String getNickname() {
 		return nickname;
