@@ -23,11 +23,13 @@ import android.widget.LinearLayout;
 import android.widget.Toast;
 
 import com.bumptech.glide.Glide;
-import com.google.gson.Gson;
 import com.luck.picture.lib.PictureSelector;
 import com.luck.picture.lib.config.PictureConfig;
 import com.luck.picture.lib.config.PictureMimeType;
 import com.luck.picture.lib.entity.LocalMedia;
+
+import org.json.JSONException;
+import org.json.JSONObject;
 
 import java.io.File;
 import java.io.IOException;
@@ -166,7 +168,7 @@ public class HomePublishUpdatesActivity extends AppCompatActivity implements Vie
                 break;
             case R.id.btn_publish_sure:
                 //上传
-                String url = ("http://192.168.31.208:8080/test/Test");
+                String url = ("http://39.97.3.111:8080/JianCanServerSystem/food/uploadVideo");
                 uploadFiles(url);
                 break;
 
@@ -326,9 +328,9 @@ public class HomePublishUpdatesActivity extends AppCompatActivity implements Vie
         RequestBody fileBody = null;
         File file;
         File file1;
-        Goods goods = new Goods();
-        goods.setContent( content.getText().toString());
-        goods.setTitle(title.getText().toString());
+        Food foods = new Food();
+        foods.setContent(content.getText().toString());
+        foods.setTitle(title.getText().toString());
         switch (type) {
             case 0:
                 for (int i = 0; i < paths.size(); i++) {
@@ -336,19 +338,18 @@ public class HomePublishUpdatesActivity extends AppCompatActivity implements Vie
                     fileBody = RequestBody
                             .create(MediaType.parse("image/*"), file);
                     requestBody = new MultipartBody.Builder()
-                            .addFormDataPart("file",goods.toString())
-                            .addFormDataPart("files","pic"+i,fileBody)
+                            .addFormDataPart("food", foods.toString())
+                            .addFormDataPart("images", "pic" + i, fileBody)
                             .build();
                 }
 
                 break;
             case 1:
                 file1 = new File(paths.get(0));
-                fileBody = RequestBody.create(MediaType.parse("video/*"),
-                        file1);
+                fileBody = RequestBody.create(MediaType.parse("video/*"), file1);
                 requestBody = new MultipartBody.Builder()
-                        .addFormDataPart("file",goods.toString())
-                        .addFormDataPart("file", "video", fileBody)
+                        .addFormDataPart("food", foods.toString())
+                        .addFormDataPart("video", "video", fileBody)
                         .build();
                 break;
         }
@@ -369,15 +370,22 @@ public class HomePublishUpdatesActivity extends AppCompatActivity implements Vie
             @Override
             public void onResponse(Call call, Response response) throws IOException {
                 String jsonStr = response.body().string();
-                String msgResponse = new Gson().fromJson(jsonStr, String.class);
-                if (msgResponse.equals("true")) {
-                    msg.what = 2;
-                    handler.sendMessage(msg);
-                } else {
-                    msg.what = 3;
-                    handler.sendMessage(msg);
+                JSONObject res = null;
+                try {
+                    res = new JSONObject(jsonStr);
+                    String msgResponse  = res.getString("isSuccess");
+                    if (msgResponse.equals("true")) {
+                        msg.what = 2;
+                        handler.sendMessage(msg);
+                    } else {
+                        msg.what = 3;
+                        handler.sendMessage(msg);
 
+                    }
+                } catch (JSONException e) {
+                    e.printStackTrace();
                 }
+
             }
         });
     }
