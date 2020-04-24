@@ -1,17 +1,27 @@
 package com.jiancan.entity.vegetables;
 
-import java.util.Date;
-
 import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
+import javax.persistence.Id;
+import javax.persistence.Table;
+
 @Entity
+@Table(name = "comment")
+
 public class Comment {
+	
+	@Id
+	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private int id;
+	
 	private int foodId;
 	private int userId;
 	private int parentId;
 	private int fabulous;
 	private String content;
-	private Date date;
+	private String date;
+	
 	public int getId() {
 		return id;
 	}
@@ -48,10 +58,10 @@ public class Comment {
 	public void setContent(String content) {
 		this.content = content;
 	}
-	public Date getDate() {
+	public String getDate() {
 		return date;
 	}
-	public void setDate(Date date) {
+	public void setDate(String date) {
 		this.date = date;
 	}
 	

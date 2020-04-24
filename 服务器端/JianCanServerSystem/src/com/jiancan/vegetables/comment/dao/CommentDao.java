@@ -2,7 +2,6 @@ package com.jiancan.vegetables.comment.dao;
 
 import javax.annotation.Resource;
 
-import org.apache.coyote.http2.ConnectionSettingsBase;
 import org.hibernate.Query;
 import org.hibernate.Session;
 import org.hibernate.SessionFactory;
@@ -10,12 +9,7 @@ import org.hibernate.Transaction;
 import org.springframework.stereotype.Repository;
 
 import com.jiancan.entity.vegetables.Comment;
-import com.mysql.jdbc.Connection;
 
-import java.text.ParseException;
-import java.text.SimpleDateFormat;
-import java.util.Collections;
-import java.util.Comparator;
 import java.util.List;
 
 @Repository
