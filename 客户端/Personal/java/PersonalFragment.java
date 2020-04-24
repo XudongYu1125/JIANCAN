@@ -115,9 +115,17 @@ public class PersonalFragment extends Fragment {
                     break;
                 case R.id.ll_histroy:
                     //跳转到用户的历史记录界面
+                    Log.e("跳转到","历史记录列表界面");
+                    intent = new Intent();
+                    intent.setClass(getContext(),PersonalHistroyListActivity.class);
+                    startActivity(intent);
                     break;
                 case R.id.ll_collection:
                     //跳转到用户的收藏界面
+                    Log.e("跳转到","收藏列表界面");
+                    intent = new Intent();
+                    intent.setClass(getContext(),PersonalCollectionListActivity.class);
+                    startActivity(intent);
                     break;
                 case R.id.ll_download:
                     //跳转到用户的下载记录界面

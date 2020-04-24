@@ -12,9 +12,11 @@
         android:layout_marginBottom="2dp"
         android:layout_height="100dp">
         <ImageView
+            android:layout_marginLeft="20dp"
+            android:src="@drawable/default_vatar"
             android:id="@+id/iv_user_pic"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content" />
+            android:layout_width="80dp"
+            android:layout_height="80dp" />
         <TextView
             android:id="@+id/tv_item_name"
             android:layout_marginLeft="20dp"
@@ -25,7 +27,7 @@
         <Button
             android:id="@+id/btn_unfollow"
             android:text="已关注"
-            android:layout_marginLeft="160dp"
+            android:layout_marginLeft="70dp"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content" />
     </LinearLayout>

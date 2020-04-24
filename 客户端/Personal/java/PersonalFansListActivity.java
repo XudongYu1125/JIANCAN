@@ -35,7 +35,7 @@ public class PersonalFansListActivity extends AppCompatActivity {
         user.setNickname("bbbbb");
         fans.add(user);
         findViews();
-        requestData();
+//        requestData();
     }
 
     private void findViews() {

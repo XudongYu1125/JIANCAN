@@ -46,20 +46,20 @@ public class PersonalFollowAdapter extends BaseAdapter {
 
     @Override
     public View getView(final int position, View convertView, ViewGroup parent) {
-        PersonalFollowAdapter.ViewHolder viewHolder = null;
+        ViewHolder viewHolder = null;
         if (convertView == null){
             LayoutInflater inflater = LayoutInflater.from(context);
             convertView = inflater.inflate(item_id, null);
-            viewHolder = new PersonalFollowAdapter.ViewHolder();
+            viewHolder = new ViewHolder();
             viewHolder.tvFollowersName = convertView.findViewById(R.id.tv_item_name);
             viewHolder.llFollowers = convertView.findViewById(R.id.ll_followers);
             viewHolder.ivUser = convertView.findViewById(R.id.iv_user_pic);
             convertView.setTag(viewHolder);
         }else {
-            viewHolder = (PersonalFollowAdapter.ViewHolder) convertView.getTag();
+            viewHolder = (ViewHolder) convertView.getTag();
         }
         viewHolder.tvFollowersName.setText(followers.get(position).getNickname());
-        Glide.with(context).load(Constant.BASE_URL +"paperimg/"+ followers.get(position).getImageUrl()).into(viewHolder.ivUser);
+        //Glide.with(context).load(Constant.BASE_URL +"paperimg/"+ followers.get(position).getImageUrl()).into(viewHolder.ivUser);
         return convertView;
     }
     private class ViewHolder{

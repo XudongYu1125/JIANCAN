@@ -36,7 +36,7 @@ public class PersonalFollowListActivity extends AppCompatActivity {
         user.setNickname("aaaa");
         followers.add(user);
         findViews();
-        requestData();
+//        requestData();
     }
     private void findViews() {
         lvFollowers = findViewById(R.id.lv_follwers);
