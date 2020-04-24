@@ -1,11 +1,22 @@
 package com.jiancan.entity.vegetables;
 
 import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
+import javax.persistence.Id;
+import javax.persistence.Table;
 
 @Entity
+@Table(name = "vegetables")
+
 public class Vegetables {
+	
+	@Id
+	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private int id;
+	
 	private String vegetable;
+	
 	public int getId() {
 		return id;
 	}
