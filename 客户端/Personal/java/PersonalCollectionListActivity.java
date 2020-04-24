@@ -22,9 +22,9 @@ import okhttp3.Request;
 import okhttp3.RequestBody;
 import okhttp3.Response;
 
-public class PersonalTrendsListActivity extends AppCompatActivity {
+public class PersonalCollectionListActivity extends AppCompatActivity {
     private ListView lvFoods;
-    private PersonalTrendsAdapter adapter;
+    private PersonalCollectionAdapter adapter;
     private List<Food> foods = new ArrayList<>();
     private OkHttpClient okHttpClient;
     @Override
@@ -38,12 +38,12 @@ public class PersonalTrendsListActivity extends AppCompatActivity {
     }
     private void findViews() {
         lvFoods = findViewById(R.id.lv_trends);
-        adapter = new PersonalTrendsAdapter(foods, R.layout.trends_listview_item, PersonalTrendsListActivity.this);
+        adapter = new PersonalCollectionAdapter(foods,R.layout.trends_listview_item,PersonalCollectionListActivity.this);
         lvFoods.setAdapter(adapter);
     }
     private void requestData() {
         RequestBody body = RequestBody.create(MediaType.parse("text/plain"),"1");
-        Request request = new Request.Builder().url( Constant.URL_TRENDS).post(body).build();
+        Request request = new Request.Builder().url( Constant.URL_COLLECTION).post(body).build();
         Call call = okHttpClient.newCall(request);
         call.enqueue(new Callback() {
             @Override
@@ -51,7 +51,6 @@ public class PersonalTrendsListActivity extends AppCompatActivity {
                 e.printStackTrace();
                 Log.e("error",e.getMessage());
             }
-
             @Override
             public void onResponse(Call call, Response response) throws IOException {
                 String foodListStr = response.body().string();

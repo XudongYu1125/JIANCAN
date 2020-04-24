@@ -13,13 +13,12 @@ import com.bumptech.glide.Glide;
 
 import java.util.List;
 
-public class PersonalTrendsAdapter extends BaseAdapter {
-
+public class PersonalCollectionAdapter extends BaseAdapter {
     private List<Food> foods ;
     private int item_id;
     private Context context;
 
-    public PersonalTrendsAdapter(List<Food> foods, int item_id, Context context) {
+    public PersonalCollectionAdapter(List<Food> foods, int item_id, Context context) {
         this.foods = foods;
         this.item_id = item_id;
         this.context = context;
@@ -47,26 +46,27 @@ public class PersonalTrendsAdapter extends BaseAdapter {
 
     @Override
     public View getView(final int position, View convertView, ViewGroup parent) {
-        ViewHolder viewHolder = null;
+        PersonalCollectionAdapter.ViewHolder viewHolder = null;
         if (convertView == null){
             LayoutInflater inflater = LayoutInflater.from(context);
             convertView = inflater.inflate(item_id, null);
-            viewHolder = new ViewHolder();
+            viewHolder = new PersonalCollectionAdapter.ViewHolder();
             viewHolder.tvFoodName = convertView.findViewById(R.id.tv_item_name);
             viewHolder.llTrends = convertView.findViewById(R.id.ll_trends);
             viewHolder.imageView = convertView.findViewById(R.id.iv_trends_pic);
+            viewHolder.tvAuthorName = convertView.findViewById(R.id.tv_item_author);
             convertView.setTag(viewHolder);
         }else {
-            viewHolder = (ViewHolder) convertView.getTag();
+            viewHolder = (PersonalCollectionAdapter.ViewHolder) convertView.getTag();
         }
         viewHolder.tvFoodName.setText(foods.get(position).getName());
-
-       // Glide.with(context).load(Constant.BASE_URL +"paperimg/"+ foods.get(position).getImageUrl()).into(viewHolder.imageView);
+        //Glide.with(context).load(Constant.BASE_URL +"paperimg/"+ foods.get(position).getImageUrl()).into(viewHolder.imageView);
         return convertView;
     }
     private class ViewHolder{
         public TextView tvFoodName;
         public LinearLayout llTrends;
         public ImageView imageView;
+        public TextView tvAuthorName;
     }
 }
