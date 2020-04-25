@@ -54,6 +54,9 @@
      上传头像：
        地址：/user/uploada/{imgname}
        说明：/传入imgname，无返回值
+     通过userId得到gson形式user对象
+       地址：/user/getu/{id}
+       说明：传入userId，返回0用户不存在，否则返回Gson形式User对象
 
 
 评论相关：
