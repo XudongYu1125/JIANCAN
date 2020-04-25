@@ -1,4 +1,4 @@
-package com.example.user.jiancan;
+package com.example.user.jiancan.personal.activityAndFragment;
 
 import android.os.Bundle;
 import android.support.annotation.Nullable;
@@ -6,6 +6,10 @@ import android.support.v7.app.AppCompatActivity;
 import android.util.Log;
 import android.widget.ListView;
 
+import com.example.user.jiancan.Constant;
+import com.example.user.jiancan.personal.util.PersonalTrendsAdapter;
+import com.example.user.jiancan.R;
+import com.example.user.jiancan.personal.entity.Food;
 import com.google.gson.Gson;
 import com.google.gson.reflect.TypeToken;
 

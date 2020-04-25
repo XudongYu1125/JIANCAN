@@ -1,4 +1,4 @@
-package com.example.user.jiancan;
+package com.example.user.jiancan.personal.activityAndFragment;
 
 import android.Manifest;
 import android.content.Intent;
@@ -22,6 +22,9 @@ import android.widget.Toast;
 import com.bumptech.glide.Glide;
 import com.bumptech.glide.request.RequestOptions;
 import com.bumptech.glide.signature.ObjectKey;
+import com.example.user.jiancan.Constant;
+import com.example.user.jiancan.R;
+import com.example.user.jiancan.personal.entity.User;
 import com.google.gson.Gson;
 
 import java.io.DataInputStream;

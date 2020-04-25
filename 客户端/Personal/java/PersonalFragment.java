@@ -1,4 +1,4 @@
-package com.example.user.jiancan;
+package com.example.user.jiancan.personal.activityAndFragment;
 
 import android.content.Intent;
 import android.content.SharedPreferences;
@@ -14,12 +14,8 @@ import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 
-import com.bumptech.glide.Glide;
-import com.bumptech.glide.request.RequestOptions;
-import com.bumptech.glide.signature.ObjectKey;
-import com.google.gson.Gson;
-
-import static android.content.Context.MODE_PRIVATE;
+import com.example.user.jiancan.R;
+import com.example.user.jiancan.personal.entity.User;
 
 public class PersonalFragment extends Fragment {
     private LinearLayout llMessage;
