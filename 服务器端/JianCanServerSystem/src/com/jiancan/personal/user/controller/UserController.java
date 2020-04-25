@@ -67,4 +67,9 @@ public class UserController {
 			fileOutputStream.close();
 		}
 	}
+	//通过userId获得user
+	@RequestMapping(value = "/getu/{id}",method = RequestMethod.GET)
+	public String getUser(@PathVariable String id) {
+		return userService.findUserById(id);
+	}
 }

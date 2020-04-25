@@ -53,4 +53,14 @@ public class UserService {
 			return "1";
 		}
 	}
+	//通过id查找用户
+	//返回值0代表用户不存在
+	public String findUserById(String id) {
+		User user = userDao.selectUserById(Integer.parseInt(id));
+		if(user==null) {
+			return "0";
+		}else{
+			return new Gson().toJson(user);
+		}
+	}
 }
