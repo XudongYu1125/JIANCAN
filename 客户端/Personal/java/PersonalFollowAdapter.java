@@ -1,4 +1,4 @@
-package com.example.user.jiancan;
+package com.example.user.jiancan.personal.util;
 
 import android.content.Context;
 import android.view.LayoutInflater;
@@ -9,7 +9,8 @@ import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 
-import com.bumptech.glide.Glide;
+import com.example.user.jiancan.R;
+import com.example.user.jiancan.personal.entity.User;
 
 import java.util.List;
 
