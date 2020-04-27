@@ -15,7 +15,7 @@
             android:layout_height="wrap_content"
             android:layout_marginTop="10dp"
             android:layout_marginRight="6dp"
-            android:background="#C61A40C4"
+            android:background="@drawable/textview_back"
             android:gravity="center"
             android:text="结界，我明天上班想吃大盘鸡，暗示暗示，想要教程！"
             android:textColor="#FFFFFF"
