@@ -16,14 +16,15 @@ import com.jiancan.entity.personal.User;
 public class UserDao {
 	@Resource
 	private SessionFactory sessionFactory;
-	private Session session = this.sessionFactory.getCurrentSession();
-	private Transaction txTransaction = session.beginTransaction();
 	public List<User> selectAllUsers(){
+		Session session = sessionFactory.getCurrentSession();
 		String sql = "from User";
 		Query query = session.createQuery(sql);
 		return (List<User>)query.list();
 	}
 	public int insertUser(User user) {
+		Session session = sessionFactory.getCurrentSession();
+		Transaction txTransaction = session.beginTransaction();
 		String sql= "insert into User (sex,nickname,phone,password,imageurl) value(?,?,?,?,?)";
 		Query query = session.createQuery(sql);
 		query.setParameter(0, user.getSex());
@@ -31,15 +32,23 @@ public class UserDao {
 		query.setParameter(2, user.getPhone());
 		query.setParameter(3, user.getPassword());
 		query.setParameter(4, user.getImageUrl());
-		return query.executeUpdate();
+		int i =query.executeUpdate();
+		txTransaction.commit();
+		return i;
 	}
 	public int deleteUser(int id) {
+		Session session = sessionFactory.getCurrentSession();
+		Transaction txTransaction = session.beginTransaction();
 		String sql= "delete from User where id = ?";
 		Query query = session.createQuery(sql);
 		query.setParameter(0, id);
-		return query.executeUpdate();
+		int i =query.executeUpdate();
+		txTransaction.commit();
+		return i;
 	}
 	public int updateUser(User user) {
+		Session session = sessionFactory.getCurrentSession();
+		Transaction txTransaction = session.beginTransaction();
 		String sql= "update User set sex=?,nickname=?,phone=?,password=?,imageurl=?";
 		Query query = session.createQuery(sql);
 		query.setParameter(0, user.getSex());
@@ -47,9 +56,12 @@ public class UserDao {
 		query.setParameter(2, user.getPhone());
 		query.setParameter(3, user.getPassword());
 		query.setParameter(4, user.getImageUrl());
-		return query.executeUpdate();
+		int i =query.executeUpdate();
+		txTransaction.commit();
+		return i;
 	}
 	public User selectUserById(int id) {
+		Session session = sessionFactory.getCurrentSession();
 		String sql = "from User where id=?";
 		Query query = session.createQuery(sql);
 		query.setParameter(0, id);
@@ -60,6 +72,7 @@ public class UserDao {
 		return null;
 	}
 	public User selectUserByNickname(String nickname) {
+		Session session = sessionFactory.getCurrentSession();
 		String sql = "from User where nickname=?";
 		Query query = session.createQuery(sql);
 		query.setParameter(0, nickname);
@@ -70,6 +83,7 @@ public class UserDao {
 		return null;
 	}
 	public User selectUserByPhone(String phone) {
+		Session session = sessionFactory.getCurrentSession();
 		String sql = "from User where phone=?";
 		Query query = session.createQuery(sql);
 		query.setParameter(0, phone);
