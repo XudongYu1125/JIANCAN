@@ -1,6 +1,7 @@
 package com.example.user.jiancan.personal.util;
 
 import android.content.Context;
+import android.util.SparseBooleanArray;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -19,6 +20,9 @@ public class PersonalHistoryAdapter extends BaseAdapter {
     private List<Food> foods ;
     private int item_id;
     private Context context;
+    private boolean isShowCheckBox = false;//表示当前是否是多选状态。
+    private SparseBooleanArray stateCheckedMap = new SparseBooleanArray();//用来存放CheckBox的选中状态，true为选中,false为没有选中
+
 
     public PersonalHistoryAdapter(List<Food> foods, int item_id, Context context) {
         this.foods = foods;
@@ -69,4 +73,8 @@ public class PersonalHistoryAdapter extends BaseAdapter {
         public LinearLayout llTrends;
         public ImageView imageView;
     }
+    public void setShowCheckBox(boolean showCheckBox) {
+        isShowCheckBox = showCheckBox;
+    }
+
 }
