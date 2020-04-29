@@ -221,7 +221,6 @@ public class FoodController {
 
 		    String rootPath = request.getServletContext().getRealPath(File.separator);
 		    
-		    
 		    List<MultipartFile> images = ((MultipartHttpServletRequest) request).getFiles("images");
 		   
 		    
