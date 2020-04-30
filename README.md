@@ -18,7 +18,7 @@
   * Github：https://github.com/tianying10aha
 * 李文韬（开发工程师，UI设计师，测试工程师）
   * Email：1050582678@qq.com
-  * Github：https://github.com/LeeWenTao22
+  * Github：https://github.com/LeWenTao22
 * 丁旭楠（开发工程师，UI设计师，测试工程师）
   * Email：695691236@qq.com
   * Github：https://github.com/Dingxunan
