@@ -1,8 +1,9 @@
-package com.example.user.jiancan;
+package com.example.user.jiancan.home.activityAndFragment;
 
 import android.app.Activity;
 import android.app.Dialog;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.graphics.Bitmap;
 import android.media.MediaMetadataRetriever;
 import android.os.Bundle;
@@ -23,13 +24,17 @@ import android.widget.LinearLayout;
 import android.widget.Toast;
 
 import com.bumptech.glide.Glide;
+import com.example.user.jiancan.Constant;
+import com.example.user.jiancan.R;
+import com.example.user.jiancan.TabHostActivity;
+import com.example.user.jiancan.home.entity.Food;
+import com.example.user.jiancan.personal.activityAndFragment.PersonalTrendsListActivity;
+import com.example.user.jiancan.personal.entity.User;
+import com.google.gson.Gson;
 import com.luck.picture.lib.PictureSelector;
 import com.luck.picture.lib.config.PictureConfig;
 import com.luck.picture.lib.config.PictureMimeType;
 import com.luck.picture.lib.entity.LocalMedia;
-
-import org.json.JSONException;
-import org.json.JSONObject;
 
 import java.io.File;
 import java.io.IOException;
@@ -65,23 +70,8 @@ public class HomePublishUpdatesActivity extends AppCompatActivity implements Vie
 
     private OkHttpClient okHttpClient;
     private Message msg = Message.obtain();
-    private Handler handler = new Handler() {
-        @Override
-        public void handleMessage(Message msg) {
-            super.handleMessage(msg);
-            switch (msg.what) {
-                case 1:
-                    Toast.makeText(HomePublishUpdatesActivity.this, "上传失败，网络有问题", Toast.LENGTH_LONG);
-                    break;
-                case 2:
-                    Toast.makeText(HomePublishUpdatesActivity.this, "上传成功，可以前往个人动态查看", Toast.LENGTH_LONG);
-                    break;
-                case 3:
-                    Toast.makeText(HomePublishUpdatesActivity.this, "上传失败", Toast.LENGTH_LONG);
-                    break;
-            }
-        }
-    };
+
+    private SharedPreferences sharedPreferences;
 
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
@@ -95,7 +85,32 @@ public class HomePublishUpdatesActivity extends AppCompatActivity implements Vie
 
         init();
 
+
     }
+
+    /**
+     * 更新UI
+     */
+    private Handler handler = new Handler() {
+        @Override
+        public void handleMessage(Message msg) {
+            super.handleMessage(msg);
+            switch (msg.what) {
+                case 1:
+                    Toast.makeText(HomePublishUpdatesActivity.this, "上传失败，网络有问题", Toast.LENGTH_LONG);
+                    break;
+                case 2:
+                    Toast.makeText(HomePublishUpdatesActivity.this, "上传成功，即将前往个人动态", Toast.LENGTH_LONG);
+                    Intent intent = new Intent(HomePublishUpdatesActivity.this, PersonalTrendsListActivity.class);
+                    intent.putExtra("activityFrom","HomePublishUpdatesActivity");
+                    startActivity(intent);
+                    break;
+                case 3:
+                    Toast.makeText(HomePublishUpdatesActivity.this, "上传失败", Toast.LENGTH_LONG);
+                    break;
+            }
+        }
+    };
 
     /**
      * 初始化控件
@@ -109,6 +124,8 @@ public class HomePublishUpdatesActivity extends AppCompatActivity implements Vie
         pictuer0 = findViewById(R.id.img_publish_pic0);
         pictuer1 = findViewById(R.id.img_publish_pic1);
         pictuer2 = findViewById(R.id.img_publish_pic2);
+
+        sharedPreferences = getSharedPreferences("loginInfo", MODE_PRIVATE);
 
         addPic.setOnClickListener(this);
         cancel.setOnClickListener(this);
@@ -168,8 +185,9 @@ public class HomePublishUpdatesActivity extends AppCompatActivity implements Vie
                 break;
             case R.id.btn_publish_sure:
                 //上传
-                String url = ("http://39.97.3.111:8080/JianCanServerSystem/food/uploadVideo");
-                uploadFiles(url);
+                //String url = (Constant.HOME_BASE_URL+"uploadVideo");
+                //uploadFiles(url);
+                uploadFiles("http://192.168.31.208:8080/JianCanServerSystem/food/uploadVideo");
                 break;
 
         }
@@ -326,31 +344,34 @@ public class HomePublishUpdatesActivity extends AppCompatActivity implements Vie
     public void uploadFiles(String url) {
         RequestBody requestBody = null;
         RequestBody fileBody = null;
-        File file;
+        File file = null;
         File file1;
         Food foods = new Food();
-        foods.setContent(content.getText().toString());
+        foods.setContent( content.getText().toString());
         foods.setTitle(title.getText().toString());
+        Gson gson = new Gson();
+        String foodGson = gson.toJson(foods,Food.class);
+        MultipartBody.Builder builder = new MultipartBody.Builder().addFormDataPart("foods",foodGson);
         switch (type) {
             case 0:
+
                 for (int i = 0; i < paths.size(); i++) {
                     file = new File(paths.get(i));
+                    //.addFormDataPart("user",sharedPreferences.getString("user",null))
                     fileBody = RequestBody
                             .create(MediaType.parse("image/*"), file);
-                    requestBody = new MultipartBody.Builder()
-                            .addFormDataPart("food", foods.toString())
-                            .addFormDataPart("images", "pic" + i, fileBody)
-                            .build();
+                    builder.addFormDataPart("images","pic"+i,fileBody);
                 }
+                requestBody = builder.build();
 
                 break;
             case 1:
                 file1 = new File(paths.get(0));
-                fileBody = RequestBody.create(MediaType.parse("video/*"), file1);
-                requestBody = new MultipartBody.Builder()
-                        .addFormDataPart("food", foods.toString())
+                fileBody = RequestBody.create(MediaType.parse("video/*"),file1);
+                requestBody = builder
                         .addFormDataPart("video", "video", fileBody)
                         .build();
+                //.addFormDataPart("user",sharedPreferences.getString("user",null))
                 break;
         }
         Request request = new Request.Builder()
@@ -370,22 +391,15 @@ public class HomePublishUpdatesActivity extends AppCompatActivity implements Vie
             @Override
             public void onResponse(Call call, Response response) throws IOException {
                 String jsonStr = response.body().string();
-                JSONObject res = null;
-                try {
-                    res = new JSONObject(jsonStr);
-                    String msgResponse  = res.getString("isSuccess");
-                    if (msgResponse.equals("true")) {
-                        msg.what = 2;
-                        handler.sendMessage(msg);
-                    } else {
-                        msg.what = 3;
-                        handler.sendMessage(msg);
+                String msgResponse = new Gson().fromJson(jsonStr, String.class);
+                if (msgResponse.equals("isSuccess:true")) {
+                    msg.what = 2;
+                    handler.sendMessage(msg);
+                } else {
+                    msg.what = 3;
+                    handler.sendMessage(msg);
 
-                    }
-                } catch (JSONException e) {
-                    e.printStackTrace();
                 }
-
             }
         });
     }
