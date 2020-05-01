@@ -17,32 +17,38 @@ public class CollectAndRecordController {
 	CollectAndRecordService collectAndRecordService;
 	//通过userId和foodId添加收藏
 	@RequestMapping(value = "/ac/{userId}/{foodId}",method = RequestMethod.GET)
-	public String addCollect(@PathVariable int userId,@PathVariable int foodId) {		
+	public String addCollect(@PathVariable int userId,@PathVariable int foodId) {	
+		System.out.println("//通过userId和foodId添加收藏");
 		return collectAndRecordService.add(userId, foodId, 0);
 	}
 	//通过userId和foodId删除收藏
 	@RequestMapping(value = "/rc/{userId}/{foodId}",method = RequestMethod.GET)
 	public String removeCollect(@PathVariable int userId,@PathVariable int foodId) {
+		System.out.println("//通过userId和foodId删除收藏");
 		return collectAndRecordService.remove(userId, foodId, 0);
 	}
 	//通过userId查询收藏
 	@RequestMapping(value = "/fc/{userId}",method = RequestMethod.GET)
 	public String findCollectFoods(@PathVariable int userId) {
+		System.out.println("//通过userId查询收藏");
 		return collectAndRecordService.findFoods(userId, 0);
 	}
 	//通过userId和foodId添加历史记录
 	@RequestMapping(value = "/ar/{userId}/{foodId}",method = RequestMethod.GET)
-	public String addRecord(@PathVariable int userId,@PathVariable int foodId) {		
+	public String addRecord(@PathVariable int userId,@PathVariable int foodId) {
+		System.out.println("//通过userId和foodId添加历史记录");
 		return collectAndRecordService.add(userId, foodId, 1);
 	}
 	//通过userId和foodId删除历史记录
 	@RequestMapping(value = "/rr/{userId}/{foodId}",method = RequestMethod.GET)
 	public String removeRecord(@PathVariable int userId,@PathVariable int foodId) {
+		System.out.println("//通过userId和foodId删除历史记录");
 		return collectAndRecordService.remove(userId, foodId, 1);
 	}
 	//通过userId查询历史记录
 	@RequestMapping(value = "/fr/{userId}",method = RequestMethod.GET)
 	public String findRecordFoods(@PathVariable int userId) {
+		System.out.println("//通过userId查询历史记录");
 		return collectAndRecordService.findFoods(userId, 1);
 	}
 }
