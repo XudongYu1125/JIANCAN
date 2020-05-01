@@ -4,9 +4,9 @@
 <html>
 <head>
 <meta charset="UTF-8">
-<title>JianCanServerSystem</title>
+<title>Insert title here</title>
 </head>
 <body>
-	测试部署
+	测试
 </body>
 </html>

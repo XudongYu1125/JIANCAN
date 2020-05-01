@@ -103,6 +103,14 @@ public class Food {
 	public void setVideo(String video) {
 		this.video = video;
 	}
+	@Override
+	public String toString() {
+		return "Food [id=" + id + ", vegetablesId=" + vegetablesId + ", userId=" + userId + ", title=" + title
+				+ ", content=" + content + ", foodName=" + foodName + ", fabulous=" + fabulous + ", download="
+				+ download + ", uploadDate=" + uploadDate + ", images=" + images + ", video=" + video + "]";
+	}
+	
+	
 	
 	
 }
