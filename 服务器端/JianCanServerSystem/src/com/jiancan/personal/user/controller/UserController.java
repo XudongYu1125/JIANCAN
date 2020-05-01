@@ -43,9 +43,9 @@ public class UserController {
 		return userService.loginByNickname(nickname, password);
 	}
 	//通过手机号登录
-	@RequestMapping(value = "/loginbp/{phone}/{password}",method = RequestMethod.GET)
-	public String loginByPhone(@PathVariable String phone,@PathVariable String password) {
-		return userService.loginByPhone(phone, password);
+	@RequestMapping(value = "/loginbp/{phone}",method = RequestMethod.GET)
+	public String loginByPhone(@PathVariable String phone) {
+		return userService.loginByPhone(phone);
 	}
 	//上传头像
 	@RequestMapping(value = "/uploada/{imgname}",method = RequestMethod.GET)

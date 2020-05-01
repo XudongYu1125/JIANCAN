@@ -88,7 +88,7 @@ public class UserDao {
 		Query query = session.createQuery(sql);
 		query.setParameter(0, phone);
 		List<User>users = (List<User>)query.list();
-		if(users==null) {
+		if(users!=null) {
 			return users.get(0);
 		}
 		return null;

@@ -43,14 +43,12 @@ public class UserService {
 	}
 	//通过手机号登录
 	//返回值0代表用户不存在，1代表密码错误
-	public String loginByPhone(String phone,String password) {
+	public String loginByPhone(String phone) {
 		User user = userDao.selectUserByPhone(phone);
 		if(user==null) {
 			return "0";
-		}else if(user.getPassword()==password) {
-			return new Gson().toJson(user);
 		}else {
-			return "1";
+			return new Gson().toJson(user);
 		}
 	}
 	//通过id查找用户
