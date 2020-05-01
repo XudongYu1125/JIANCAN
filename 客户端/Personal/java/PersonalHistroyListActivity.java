@@ -36,6 +36,9 @@ import okhttp3.Response;
 public class PersonalHistroyListActivity extends AppCompatActivity {
     //https://blog.csdn.net/ymszzu/article/details/81240040
     private ListView lvFoods;
+    private LinearLayout cancel;
+    private LinearLayout selectAll;
+    private LinearLayout delete;
     private LinearLayout mLlEditBar;//控制下方那一行的显示与隐藏
     private PersonalHistoryAdapter adapter;
     private List<Food> foods = new ArrayList<>();//将所有数据放进去
@@ -50,10 +53,19 @@ public class PersonalHistroyListActivity extends AppCompatActivity {
         Food food = new Food();
         food.setName("蛋挞");
         foods.add(food);
+        Food food1 = new Food();
+        food1.setName("蛋挞");
+        foods.add(food1);
         findViews();
+        setOnclicked();
         setOnListViewItemClickListener();
         setOnListViewItemLongClickListener();
 
+    }
+    private void setOnclicked() {
+        cancel.setOnClickListener(new onClicked());
+        selectAll.setOnClickListener(new onClicked());
+        delete.setOnClickListener(new onClicked());
     }
     private class onClicked implements View.OnClickListener{
         @Override
@@ -74,6 +86,8 @@ public class PersonalHistroyListActivity extends AppCompatActivity {
             }
         }}
     private void delete() {
+        //删除
+        Log.e("persoanl","删除");
         if (mCheckedData.size() == 0) {
             Toast.makeText(PersonalHistroyListActivity.this, "您还没有选中任何数据！", Toast.LENGTH_SHORT).show();
             return;
@@ -107,6 +121,8 @@ public class PersonalHistroyListActivity extends AppCompatActivity {
     }
 
     private void selectAll() {
+        //全选
+        Log.e("persoanl","选中全部");
         mCheckedData.clear();//清空之前选中数据
         if (isSelectedAll) {
             setStateCheckedMap(true);//将CheckBox的所有选中状态变成选中
@@ -121,6 +137,8 @@ public class PersonalHistroyListActivity extends AppCompatActivity {
 
 
     private void cancel() {
+        //取消删除
+        Log.e("persoanl","取消删除");
         setStateCheckedMap(false);//将CheckBox的所有选中状态变成未选中
         mLlEditBar.setVisibility(View.GONE);//隐藏下方布局
         adapter.setShowCheckBox(false);//让CheckBox那个方框隐藏
@@ -169,6 +187,10 @@ public class PersonalHistroyListActivity extends AppCompatActivity {
 
 
     private void findViews() {
+        cancel = findViewById(R.id.ll_personal_cancel);
+        selectAll = findViewById(R.id.ll_personal_select_all);
+        delete = findViewById(R.id.ll_personal_delete);
+        mLlEditBar = findViewById(R.id.ll_edit_bar);
         lvFoods = findViewById(R.id.lv_trends);
         adapter = new PersonalHistoryAdapter(foods, R.layout.trends_listview_item, PersonalHistroyListActivity.this);
         lvFoods.setAdapter(adapter);
