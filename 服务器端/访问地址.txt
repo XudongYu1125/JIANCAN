@@ -49,8 +49,8 @@
        地址：/user/loginbn/{nickname}/{password}
        说明：传入昵称和密码，返回0用户不存在，返回1密码错误，否则返回Gson形式User对象
      通过手机号登录
-       地址：/user/loginbp/{phone}/{password}
-       说明：传入手机号和密码，返回0用户不存在，返回1密码错误，否则返回Gson形式User对象
+       地址：/user/loginbp/{phone}
+       说明：传入手机号，返回0用户不存在，否则返回Gson形式User对象
      上传头像：
        地址：/user/uploada/{imgname}
        说明：/传入imgname，无返回值
