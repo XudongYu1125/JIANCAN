@@ -25,26 +25,31 @@ public class UserController {
 	//注册用户
 	@RequestMapping(value = "/register/{userGson}",method = RequestMethod.GET)
 	public String register(@PathVariable String userGson) {
+		System.out.println("//注册用户");
 		return userService.addUser(userGson);
 	}
 	//注销用户
 	@RequestMapping(value = "/cancel/{id}",method = RequestMethod.GET)
 	public String cancel(@PathVariable String id) {
+		System.out.println("//注销用户");
 		return userService.removeUser(id);
 	}
 	//修改用户信息
 	@RequestMapping(value = "/edit/{userGson}",method = RequestMethod.GET)
 	public String edit(@PathVariable String userGson) {
+		System.out.println("//修改用户信息");
 		return userService.editUser(userGson);
 	}
 	//通过昵称登录
 	@RequestMapping(value = "/loginbn/{nickname}/{password}",method = RequestMethod.GET)
 	public String loginByNickname(@PathVariable String nickname,@PathVariable String password) {
+		System.out.println("//通过昵称登录");
 		return userService.loginByNickname(nickname, password);
 	}
 	//通过手机号登录
 	@RequestMapping(value = "/loginbp/{phone}",method = RequestMethod.GET)
 	public String loginByPhone(@PathVariable String phone) {
+		System.out.println("//通过手机号登录");
 		return userService.loginByPhone(phone);
 	}
 	//上传头像
@@ -52,6 +57,7 @@ public class UserController {
 	public void uploadAvatar(@PathVariable String imgname,HttpServletRequest request) throws IOException {
 		String str = request.getServletContext().getRealPath("/avatarimg");
 		System.out.println(str);
+		System.out.println("//上传头像");
 		if(!(imgname==null)) {
 			InputStream input =  request.getInputStream();
 			String realPath = request.getServletContext().getRealPath("/avatarimg");
@@ -70,6 +76,7 @@ public class UserController {
 	//通过userId获得user
 	@RequestMapping(value = "/getu/{id}",method = RequestMethod.GET)
 	public String getUser(@PathVariable String id) {
+		System.out.println("//通过userId获得user");
 		return userService.findUserById(id);
 	}
 }
