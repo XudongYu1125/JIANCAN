@@ -49,8 +49,8 @@ public class FollowAndFansDao {
 	public int insertFollow(int userId,int followId) {
 		Session session = sessionFactory.getCurrentSession();
 		Transaction txTransaction = session.beginTransaction();
-		String sql="insert into followandfans(followId,fansId) value(?,?)";
-		Query query = session.createQuery(sql);
+		String sql="insert into followandfans(followId,fansId) values(?,?)";
+		Query query = session.createSQLQuery(sql);
 		query.setParameter(0, followId);
 		query.setParameter(1, userId);
 		int i = query.executeUpdate();

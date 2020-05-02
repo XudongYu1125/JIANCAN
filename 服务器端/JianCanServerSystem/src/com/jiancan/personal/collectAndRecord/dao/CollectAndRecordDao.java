@@ -19,8 +19,8 @@ public class CollectAndRecordDao {
 	public int insert(int userId,int foodId,int type) {
 		Session session = sessionFactory.getCurrentSession();
 		Transaction txTransaction = session.beginTransaction();
-		String str="insert into collectandrecord(userId,foodId,type) value(?,?,?)";
-		Query query = session.createQuery(str);
+		String str="insert into collectandrecord(userId,foodId,type) values(?,?,?)";
+		Query query = session.createSQLQuery(str);
 		query.setParameter(0, userId);
 		query.setParameter(1, foodId);
 		query.setParameter(2, type);
