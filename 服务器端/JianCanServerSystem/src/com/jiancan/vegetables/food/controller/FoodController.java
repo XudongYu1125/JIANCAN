@@ -286,7 +286,7 @@ public class FoodController {
 		       
 		        JSONObject res = new JSONObject();
 		        
-		        res.put("isSuccess", service.addFood(food));
+		        res.put("isSuccess", service.addFood(food) == null ? false : true);
 				
 				outputStream.write(res.toString().getBytes("UTF-8"));
 				System.out.println("res:" + res.toString());
