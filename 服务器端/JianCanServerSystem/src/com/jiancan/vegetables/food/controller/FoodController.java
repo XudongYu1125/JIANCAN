@@ -140,6 +140,35 @@ public class FoodController {
 		
 	}
 	
+	@RequestMapping("/getAll")
+	public void getAll(HttpServletRequest request, HttpServletResponse response) {
+		
+		System.out.println("GetAll Food");
+		
+		try {
+			
+			request.setCharacterEncoding("UTF-8");
+			response.setCharacterEncoding("UTF-8");
+			
+			OutputStream outputStream = response.getOutputStream();
+			
+	        JSONObject res = new JSONObject();
+	        
+	        res.put("list", service.listFood());
+			
+			outputStream.write(res.toString().getBytes("UTF-8"));
+			System.out.println("res:" + res.toString());
+			
+			
+		} catch (Exception e) {
+			e.printStackTrace();
+			
+		}
+		
+		
+	}
+	
+	
 	@RequestMapping("/getByUser/{userId}")
 	public void getFoodByUser(@PathVariable int userId, HttpServletRequest request, HttpServletResponse response) {
 		
@@ -214,7 +243,7 @@ public class FoodController {
 		    	multipartRequest = (MultipartHttpServletRequest)(request);
 							
 				Gson gson = new Gson();
-				//获取food user
+	
 				Food food = gson.fromJson(multipartRequest.getParameter("foods"), Food.class);
 				User user = gson.fromJson(multipartRequest.getParameter("user"), User.class);
 				String phone = user.getPhone();
@@ -238,7 +267,7 @@ public class FoodController {
 			    	
 			    	for(MultipartFile image : images) {
 			    		
-			    		String fileName = phone+image.getOriginalFilename();
+			    		String fileName = phone + image.getOriginalFilename();
 			  
 			    		File file = new File(filepath + File.separator + fileName+".png");
 			    		

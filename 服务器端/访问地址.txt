@@ -95,6 +95,10 @@
 	 修改食物：
 		地址：/food/update
 		说明：输出流中传入food Json串，返回一个boolean， 表示修改是否成功	
+
+	 查询所有食物：
+		地址：/food/getAll
+		说明：返回所有food的一个list， 可能为null
 	 
 	 通过用户搜索食物
 		地址：/food/getByUser/{userId}
