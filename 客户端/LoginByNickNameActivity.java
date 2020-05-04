@@ -84,7 +84,7 @@ public class LoginByNickNameActivity extends AppCompatActivity {
                     Toast.makeText(LoginByNickNameActivity.this, "请输入完整的账户信息", Toast.LENGTH_SHORT).show();
                 } else {
                     LoginTask loginTask = new LoginTask();
-                    loginTask.execute(Constant.PERSONAL_USER_URL+"loginbn/"+nickname+"/"+password);
+                    loginTask.execute(Constant.PERSONAL_USER_URL+"loginbn/"+nickname.getText().toString()+"/"+password.getText().toString());
                 }
                 break;
             //手机号登录
@@ -118,13 +118,7 @@ public class LoginByNickNameActivity extends AppCompatActivity {
                 URL url = new URL(strings[0]);
                 HttpURLConnection httpURLConnection = (HttpURLConnection) url.openConnection();
                 //用post方式传递数据
-                httpURLConnection.setRequestMethod("POST");
-                //发送数据到服务器端
-                OutputStream os = httpURLConnection.getOutputStream();
-
-                os.write("账号密码登录".getBytes());
-
-                //接收服务器端发回的数据
+                httpURLConnection.setRequestMethod("GET");
                 InputStream is = httpURLConnection.getInputStream();
                 byte[] btr = new byte[1024];
                 int len;
@@ -133,7 +127,7 @@ public class LoginByNickNameActivity extends AppCompatActivity {
                     result = new String(btr, 0, len);
                 }
                 is.close();
-                os.close();
+
             } catch (MalformedURLException e) {
                 e.printStackTrace();
             } catch (IOException e) {
@@ -148,8 +142,14 @@ public class LoginByNickNameActivity extends AppCompatActivity {
                 Toast.makeText(LoginByNickNameActivity.this, "密码错误!", Toast.LENGTH_SHORT).show();
             }else if (result == "0"){
                 Toast.makeText(LoginByNickNameActivity.this, "账号不存在，请先注册！", Toast.LENGTH_SHORT);
+                Intent intent = new Intent(LoginByNickNameActivity.this,RegisterActivity.class);
+                startActivity(intent);
             }else {
                 Log.e("----------", "账号密码登录");
+                /**
+                 * 这需要判断是哪个页面触发的intent，再跳到那个页面
+                 */
+                Toast.makeText(LoginByNickNameActivity.this, "登录成功！", Toast.LENGTH_SHORT);
                 //在需要写入数据的地方创建Editor对象
                 SharedPreferences.Editor editor = sharedPreferences.edit();
                 editor.putString("user", result);
