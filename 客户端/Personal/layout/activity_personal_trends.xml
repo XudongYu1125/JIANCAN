@@ -4,13 +4,12 @@
     android:orientation="vertical"
     android:layout_width="match_parent"
     android:layout_height="match_parent">
-    <ScrollView android:layout_height="wrap_content"
-        android:layout_width="match_parent">
+
         <ListView
             android:id="@+id/lv_trends"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"></ListView>
-    </ScrollView>
+
         <!--下面的全选和删除控件android:visibility="gone"-->
         <LinearLayout
             android:id="@+id/ll_edit_bar"
@@ -21,7 +20,7 @@
             android:orientation="horizontal"
             android:translationZ="10dp"
             android:layout_alignParentBottom="true"
-            >
+            android:visibility="gone">
             <LinearLayout
                 android:id="@+id/ll_personal_cancel"
                 android:gravity="center"
