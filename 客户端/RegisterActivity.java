@@ -22,6 +22,7 @@ import android.widget.Toast;
 
 import com.example.user.jiancan.personal.entity.User;
 import com.google.gson.Gson;
+import com.google.gson.GsonBuilder;
 import com.mob.MobSDK;
 
 import java.io.IOException;
@@ -67,7 +68,7 @@ public class RegisterActivity extends AppCompatActivity {
         phoneNum = findViewById(R.id.et_telephone);
         service = findViewById(R.id.tv_registerService);
         myCode = findViewById(R.id.et_code);
-        gson = new Gson();
+        gson = new GsonBuilder().serializeNulls() .create();
     }
 
     public void onClickRegister(View v) {
@@ -151,11 +152,11 @@ public class RegisterActivity extends AppCompatActivity {
                                     user = new User();
                                     user.setNickname(name.getText().toString());
                                     user.setPassword(password.getText().toString());
-                                    user.setPhoneNum(phoneNum.getText().toString());
+                                    user.setPhone(phoneNum.getText().toString());
                                     userStr = gson.toJson(user);
 
                                     RegisterTask registerTask = new RegisterTask();
-                                    registerTask.execute("http://192.168.31.208:8080/JianCanServerSystem/user/register/"+userStr);
+                                    registerTask.execute(Constant.PERSONAL_USER_URL+"register/"+userStr);
                                 }
                             } else {
                                 // TODO 处理错误的结果
@@ -184,12 +185,9 @@ public class RegisterActivity extends AppCompatActivity {
                 URL url = new URL(strings[0]);
                 HttpURLConnection httpURLConnection = (HttpURLConnection) url.openConnection();
                 //用post方式传递数据
-                httpURLConnection.setRequestMethod("POST");
-                //发送数据到服务器端
-                OutputStream os = httpURLConnection.getOutputStream();
-                os.write("注册".getBytes());
+                httpURLConnection.setRequestMethod("GET");
+                httpURLConnection.connect();
 
-                //接收服务器端发回的数据
                 InputStream is = httpURLConnection.getInputStream();
                 byte[] btr = new byte[1024];
                 int len;
@@ -198,7 +196,6 @@ public class RegisterActivity extends AppCompatActivity {
                     result = new String(btr, 0, len);
                 }
                 is.close();
-                os.close();
 
             } catch (MalformedURLException e) {
                 e.printStackTrace();
@@ -216,8 +213,8 @@ public class RegisterActivity extends AppCompatActivity {
                 case "1":
                     SharedPreferences.Editor editor = sharedPreferences.edit();
                     editor.putString("user", userStr);
-                    Toast.makeText(RegisterActivity.this, "注册成功，请进行登录！", Toast.LENGTH_SHORT).show();
-                    Intent intent = new Intent(RegisterActivity.this, MainActivity.class);
+                    Toast.makeText(RegisterActivity.this, "注册成功，返回登录！", Toast.LENGTH_SHORT).show();
+                    Intent intent = new Intent(RegisterActivity.this, LoginByNickNameActivity.class);
                     startActivity(intent);
                     finish();
                     break;
