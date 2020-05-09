@@ -45,6 +45,12 @@ public class CollectAndRecordController {
 		System.out.println("//通过userId和foodId删除历史记录");
 		return collectAndRecordService.remove(userId, foodId, 1);
 	}
+	//通过userId和foodIdList批量删除历史记录
+	@RequestMapping(value = "/rsrs/{userId}/{foodIds}",method = RequestMethod.GET)
+	public String removeSomeRecords(@PathVariable int userId,@PathVariable String foodIds) {
+		System.out.println("//通过userId和foodIdList批量删除历史记录");
+		return collectAndRecordService.removeSomeRecords(userId, foodIds, 1);
+	}
 	//通过userId查询历史记录
 	@RequestMapping(value = "/fr/{userId}",method = RequestMethod.GET)
 	public String findRecordFoods(@PathVariable int userId) {
