@@ -181,4 +181,58 @@ public class CommentController {
 		
 	}
 	
+	@RequestMapping("/praiseComment/{Id}")
+	public void praiseComment(@PathVariable int Id, HttpServletRequest request, HttpServletResponse response) {
+		
+		System.out.println("Praise Comment");
+		
+		try {
+			
+			request.setCharacterEncoding("UTF-8");
+			response.setCharacterEncoding("UTF-8");
+			
+			OutputStream outputStream = response.getOutputStream();
+			
+	        JSONObject res = new JSONObject();
+	        
+	        res.put("isSuccess", service.praiseComment(Id));
+			
+			outputStream.write(res.toString().getBytes("UTF-8"));
+			System.out.println("res:" + res.toString());
+	        
+	        
+		}catch (Exception e) {
+			e.printStackTrace();
+
+		}   
+		
+	}
+	
+	@RequestMapping("/abolishComment/{Id}")
+	public void abolishComment(@PathVariable int Id, HttpServletRequest request, HttpServletResponse response) {
+		
+		System.out.println("Abolish Comment");
+		
+		try {
+			
+			request.setCharacterEncoding("UTF-8");
+			response.setCharacterEncoding("UTF-8");
+			
+			OutputStream outputStream = response.getOutputStream();
+			
+	        JSONObject res = new JSONObject();
+	        
+	        res.put("isSuccess", service.abolishComment(Id));
+			
+			outputStream.write(res.toString().getBytes("UTF-8"));
+			System.out.println("res:" + res.toString());
+	        
+	        
+		}catch (Exception e) {
+			e.printStackTrace();
+
+		}   
+		
+	}
+	
 }

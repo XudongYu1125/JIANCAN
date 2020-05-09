@@ -98,6 +98,29 @@ public class FoodDao {
 				
 	}
 	
+	public Food selectFoodById(int id) {
+		
+		try {
+			
+			Session session = this.sessionFactory.openSession();
+	
+			String hql = "from Food f where f.id = ?";
+			
+			Query query = session.createQuery(hql);
+			query.setParameter(0, id);
+		
+			Food food = (Food) query.uniqueResult();
+			return food;
+			
+		} catch (Exception e) {
+			e.printStackTrace();
+			return null;
+		}
+		
+		
+	}
+	
+	
 	public List<Food> selectFoodByUser(int userId){
 		
 		try {

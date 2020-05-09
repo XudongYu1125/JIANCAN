@@ -17,7 +17,9 @@ public class Comment {
 	
 	private int foodId;
 	private int userId;
+	private int replyId;
 	private int parentId;
+	
 	private int fabulous;
 	private String content;
 	private String date;
@@ -39,6 +41,12 @@ public class Comment {
 	}
 	public void setUserId(int userId) {
 		this.userId = userId;
+	}
+	public int getReplyId() {
+		return replyId;
+	}
+	public void setReplyId(int replyId) {
+		this.replyId = replyId;
 	}
 	public int getParentId() {
 		return parentId;

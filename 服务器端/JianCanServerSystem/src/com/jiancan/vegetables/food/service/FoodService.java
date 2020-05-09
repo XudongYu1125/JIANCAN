@@ -8,7 +8,6 @@ import org.springframework.stereotype.Service;
 
 import com.jiancan.entity.vegetables.Food;
 import com.jiancan.vegetables.food.dao.FoodDao;
-import com.sun.org.apache.regexp.internal.recompile;
 
 @Service
 public class FoodService {
@@ -39,6 +38,12 @@ public class FoodService {
 		return dao.selectAll();
 	}
 	
+	public Food findFoodById(int id) {
+		
+		return dao.selectFoodById(id);
+		
+	}
+	
 	public List<Food> findFoodByUser(int userId) {
 		
 		return dao.selectFoodByUser(userId);
@@ -50,5 +55,26 @@ public class FoodService {
 		return dao.selectFoodByVegetables(vegetablesId);
 		
 	}
+	
+	public boolean praiseFood(int id) {
+		
+		Food food = findFoodById(id);
+		
+		food.setFabulous(food.getFabulous() + 1);
+		
+		return dao.editFood(food);
+		
+	}
+	
+	public boolean abolishFood(int id) {
+		
+		Food food = findFoodById(id);
+		
+		food.setFabulous(food.getFabulous() - 1);
+		
+		return dao.editFood(food);
+		
+	}
+	
 	
 }

@@ -13,7 +13,6 @@ import java.util.Set;
 import javax.annotation.Resource;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
-import javax.servlet.http.Part;
 
 import org.json.JSONObject;
 import org.springframework.stereotype.Controller;
@@ -21,8 +20,6 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.multipart.MultipartHttpServletRequest;
-import org.springframework.web.multipart.MultipartResolver;
-import org.springframework.web.multipart.commons.CommonsMultipartResolver;
 
 import com.google.gson.Gson;
 import com.jiancan.entity.personal.User;
@@ -236,7 +233,7 @@ public class FoodController {
 			
 		    String rootPath = request.getServletContext().getRealPath(File.separator);		   
 	        	    
-		    MultipartHttpServletRequest multipartRequest =null;
+		    MultipartHttpServletRequest multipartRequest = null;
 		    
 		    if (request instanceof MultipartHttpServletRequest) {
 		    	
@@ -311,8 +308,6 @@ public class FoodController {
 		        }
 			    
 		 
-		        
-		       
 		        JSONObject res = new JSONObject();
 		        
 		        res.put("isSuccess", service.addFood(food) == null ? false : true);
@@ -320,10 +315,7 @@ public class FoodController {
 				outputStream.write(res.toString().getBytes("UTF-8"));
 				System.out.println("res:" + res.toString());
 		    }
-		    
-		    
-	        
-	        
+		      
 		}catch (Exception e) {
 			e.printStackTrace();
 
@@ -331,7 +323,59 @@ public class FoodController {
 		
 	}
 	
+	@RequestMapping("/praiseFood/{Id}")
+	public void praiseFood(@PathVariable int Id, HttpServletRequest request, HttpServletResponse response) {
+		
+		System.out.println("Praise Food");
+		
+		try {
+			
+			request.setCharacterEncoding("UTF-8");
+			response.setCharacterEncoding("UTF-8");
+			
+			OutputStream outputStream = response.getOutputStream();
+			
+	        JSONObject res = new JSONObject();
+	        
+	        res.put("isSuccess", service.praiseFood(Id));
+			
+			outputStream.write(res.toString().getBytes("UTF-8"));
+			System.out.println("res:" + res.toString());
+	        
+	        
+		}catch (Exception e) {
+			e.printStackTrace();
+
+		}   
+		
+	}
 	
+	@RequestMapping("/abolishFood/{Id}")
+	public void abolishFood(@PathVariable int Id, HttpServletRequest request, HttpServletResponse response) {
+		
+		System.out.println("Abolish Comment");
+		
+		try {
+			
+			request.setCharacterEncoding("UTF-8");
+			response.setCharacterEncoding("UTF-8");
+			
+			OutputStream outputStream = response.getOutputStream();
+			
+	        JSONObject res = new JSONObject();
+	        
+	        res.put("isSuccess", service.abolishFood(Id));
+			
+			outputStream.write(res.toString().getBytes("UTF-8"));
+			System.out.println("res:" + res.toString());
+	        
+	        
+		}catch (Exception e) {
+			e.printStackTrace();
+
+		}   
+		
+	}
 	
 	
 	
