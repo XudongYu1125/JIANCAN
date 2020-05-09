@@ -42,6 +42,22 @@ public class CollectAndRecordDao {
 		txTransaction.commit();
 		return i;
 	}
+	//userId和foodIdList批量删除记录
+	public int deleteSomeRecords(int userId,List<Integer> foodIdList,int type) {
+		Session session = sessionFactory.getCurrentSession();
+		Transaction txTransaction = session.beginTransaction();
+		String str="delete from collectandrecord where userId=? and foodId=? and type=?";
+		int i=0;
+		for(int foodId:foodIdList) {
+			Query query = session.createQuery(str);
+			query.setParameter(0, userId);
+			query.setParameter(1, foodId);
+			query.setParameter(2, type);
+			i += query.executeUpdate();
+		}
+		txTransaction.commit();
+		return i;
+	}
 	//根据foodIdList查询记录foodList
 	public List<Food> selectRecordsByList(List foodIdList) {
 		Session session = sessionFactory.getCurrentSession();

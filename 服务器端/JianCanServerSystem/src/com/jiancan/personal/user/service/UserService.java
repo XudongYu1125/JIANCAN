@@ -5,6 +5,7 @@ import javax.annotation.Resource;
 import org.springframework.stereotype.Service;
 
 import com.google.gson.Gson;
+import com.google.gson.GsonBuilder;
 import com.jiancan.entity.personal.User;
 import com.jiancan.personal.user.dao.UserDao;
 
@@ -35,8 +36,8 @@ public class UserService {
 		User user = userDao.selectUserByNickname(nickname);
 		if(user==null) {
 			return "0";
-		}else if(user.getPassword()==password) {
-			return new Gson().toJson(user);
+		}else if(user.getPassword().equals(password)) {
+			return new GsonBuilder().serializeNulls().create().toJson(user);
 		}else {
 			return "1";
 		}
@@ -48,7 +49,7 @@ public class UserService {
 		if(user==null) {
 			return "0";
 		}else {
-			return new Gson().toJson(user);
+			return new GsonBuilder().serializeNulls().create().toJson(user);
 		}
 	}
 	//通过id查找用户
@@ -58,7 +59,7 @@ public class UserService {
 		if(user==null) {
 			return "0";
 		}else{
-			return new Gson().toJson(user);
+			return new GsonBuilder().serializeNulls().create().toJson(user);
 		}
 	}
 }
