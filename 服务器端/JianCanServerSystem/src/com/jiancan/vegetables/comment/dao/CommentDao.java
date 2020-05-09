@@ -78,6 +78,28 @@ public class CommentDao {
 		
 	}
 	
+	public Comment selectCommentById(int id) {
+		
+		try {
+			
+			Session session = this.sessionFactory.openSession();
+	
+			String hql = "from Comment c where c.id = ?";
+			
+			Query query = session.createQuery(hql);
+			query.setParameter(0, id);
+		
+			Comment comment = (Comment) query.uniqueResult();
+			return comment;
+			
+		} catch (Exception e) {
+			e.printStackTrace();
+			return null;
+		}
+		
+		
+	}
+	
 	public List<Comment> selectCommentByUser(int userId){
 		
 		try {

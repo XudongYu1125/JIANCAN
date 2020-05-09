@@ -23,6 +23,7 @@ public class Food {
 	private int vegetablesId;
 	private int userId;
 	
+	private int type;
 	private String title;
 	private String content;
 	private String foodName;
@@ -54,6 +55,12 @@ public class Food {
 	}
 	public void setUserId(int userId) {
 		this.userId = userId;
+	}
+	public int getType() {
+		return type;
+	}
+	public void setType(int type) {
+		this.type = type;
 	}
 	public String getTitle() {
 		return title;

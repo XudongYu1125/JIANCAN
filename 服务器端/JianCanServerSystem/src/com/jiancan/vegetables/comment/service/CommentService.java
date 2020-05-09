@@ -33,6 +33,12 @@ public class CommentService {
 		
 	}
 	
+	public Comment findCommentById(int id) {
+		
+		return dao.selectCommentById(id);
+		
+	}
+	
 	public List<Comment> findCommentByUser(int userId) {
 		
 		return dao.selectCommentByUser(userId);
@@ -45,5 +51,24 @@ public class CommentService {
 		
 	}
 	
+	public boolean praiseComment(int id) {
+		
+		Comment comment = findCommentById(id);
+		
+		comment.setFabulous(comment.getFabulous() + 1);
+		
+		return dao.editComment(comment);
+		
+	}
+	
+	public boolean abolishComment(int id) {
+		
+		Comment comment = findCommentById(id);
+		
+		comment.setFabulous(comment.getFabulous() - 1);
+		
+		return dao.editComment(comment);
+		
+	}
 	
 }
