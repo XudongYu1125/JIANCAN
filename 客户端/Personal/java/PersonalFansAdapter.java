@@ -5,6 +5,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.BaseAdapter;
+import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
@@ -55,12 +56,19 @@ public class PersonalFansAdapter extends BaseAdapter {
             viewHolder.tvFansName = convertView.findViewById(R.id.tv_item_name);
             viewHolder.llFans = convertView.findViewById(R.id.ll_followers);
             viewHolder.ivUser = convertView.findViewById(R.id.iv_user_pic);
+            viewHolder.cancel = convertView.findViewById(R.id.btn_unfollow);
             convertView.setTag(viewHolder);
         }else {
             viewHolder = (ViewHolder) convertView.getTag();
         }
         viewHolder.tvFansName.setText(fans.get(position).getNickname());
-
+        viewHolder.cancel.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                fans.remove(position);
+                notifyDataSetChanged();
+            }
+        });
         //Glide.with(context).load(Constant.BASE_URL +"paperimg/"+ fans.get(position).getImageUrl()).into(viewHolder.ivUser);
         return convertView;
     }
@@ -68,5 +76,6 @@ public class PersonalFansAdapter extends BaseAdapter {
         public TextView tvFansName;
         public LinearLayout llFans;
         public ImageView ivUser;
+        public Button cancel;
     }
 }

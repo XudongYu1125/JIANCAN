@@ -192,7 +192,7 @@ public class PersonalTrendsListActivity extends AppCompatActivity {
         delete = findViewById(R.id.ll_personal_delete);
         mLlEditBar = findViewById(R.id.ll_edit_bar);
         lvFoods = findViewById(R.id.lv_trends);
-        adapter = new PersonalTrendsAdapter(foods, R.layout.trends_listview_item, PersonalTrendsListActivity.this);
+        adapter = new PersonalTrendsAdapter(foods, R.layout.trends_listview_item, PersonalTrendsListActivity.this,stateCheckedMap);
         lvFoods.setAdapter(adapter);
     }
     /**
