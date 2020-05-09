@@ -353,7 +353,7 @@ public class FoodController {
 	@RequestMapping("/abolishFood/{Id}")
 	public void abolishFood(@PathVariable int Id, HttpServletRequest request, HttpServletResponse response) {
 		
-		System.out.println("Abolish Comment");
+		System.out.println("Abolish Food");
 		
 		try {
 			
