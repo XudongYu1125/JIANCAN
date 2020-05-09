@@ -25,10 +25,11 @@ public class PersonalTrendsAdapter extends BaseAdapter {
     private SparseBooleanArray stateCheckedMap = new SparseBooleanArray();//用来存放CheckBox的选中状态，true为选中,false为没有选中
     ViewHolder viewHolder;
 
-    public PersonalTrendsAdapter(List<Food> foods, int item_id, Context context) {
+    public PersonalTrendsAdapter(List<Food> foods, int item_id, Context context,SparseBooleanArray stateCheckedMap) {
         this.foods = foods;
         this.item_id = item_id;
         this.context = context;
+        this.stateCheckedMap = stateCheckedMap;
     }
     @Override
     public int getCount() {

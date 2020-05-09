@@ -1,10 +1,14 @@
 package com.example.user.jiancan.personal.util;
 
+import android.annotation.SuppressLint;
 import android.content.Context;
+import android.graphics.Color;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.BaseAdapter;
+import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
@@ -18,6 +22,7 @@ public class PersonalFollowAdapter extends BaseAdapter {
     private List<User> followers ;
     private int item_id;
     private Context context;
+    ViewHolder viewHolder ;
 
     public PersonalFollowAdapter(List<User> followers, int item_id, Context context) {
         this.followers = followers;
@@ -47,7 +52,7 @@ public class PersonalFollowAdapter extends BaseAdapter {
 
     @Override
     public View getView(final int position, View convertView, ViewGroup parent) {
-        ViewHolder viewHolder = null;
+
         if (convertView == null){
             LayoutInflater inflater = LayoutInflater.from(context);
             convertView = inflater.inflate(item_id, null);
@@ -55,11 +60,19 @@ public class PersonalFollowAdapter extends BaseAdapter {
             viewHolder.tvFollowersName = convertView.findViewById(R.id.tv_item_name);
             viewHolder.llFollowers = convertView.findViewById(R.id.ll_followers);
             viewHolder.ivUser = convertView.findViewById(R.id.iv_user_pic);
+            viewHolder.cancel = convertView.findViewById(R.id.btn_unfollow);
             convertView.setTag(viewHolder);
         }else {
             viewHolder = (ViewHolder) convertView.getTag();
         }
         viewHolder.tvFollowersName.setText(followers.get(position).getNickname());
+        viewHolder.cancel.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                followers.remove(position);
+                notifyDataSetChanged();
+            }
+        });
         //Glide.with(context).load(Constant.BASE_URL +"paperimg/"+ followers.get(position).getImageUrl()).into(viewHolder.ivUser);
         return convertView;
     }
@@ -67,5 +80,6 @@ public class PersonalFollowAdapter extends BaseAdapter {
         public TextView tvFollowersName;
         public LinearLayout llFollowers;
         public ImageView ivUser;
+        public Button cancel;
     }
 }

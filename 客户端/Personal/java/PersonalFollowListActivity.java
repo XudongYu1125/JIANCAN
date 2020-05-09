@@ -1,15 +1,20 @@
 package com.example.user.jiancan.personal.activityAndFragment;
 
+import android.annotation.SuppressLint;
+import android.graphics.Color;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v7.app.AppCompatActivity;
 import android.util.Log;
+import android.view.View;
+import android.widget.AdapterView;
 import android.widget.ListView;
 
 import com.example.user.jiancan.Constant;
 import com.example.user.jiancan.personal.util.PersonalFollowAdapter;
 import com.example.user.jiancan.R;
 import com.example.user.jiancan.personal.entity.User;
+import com.example.user.jiancan.personal.util.PersonalHistoryAdapter;
 import com.google.gson.Gson;
 import com.google.gson.reflect.TypeToken;
 
@@ -36,8 +41,14 @@ public class PersonalFollowListActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_personal_followers);
         User user = new User();
-        user.setNickname("aaaa");
+        user.setNickname("山河永蔚");
         followers.add(user);
+        User user1 = new User();
+        user1.setNickname("山河永蔚1");
+        followers.add(user1);
+        User user2 = new User();
+        user2.setNickname("山河永蔚2");
+        followers.add(user2);
         findViews();
 //        requestData();
     }
@@ -46,6 +57,7 @@ public class PersonalFollowListActivity extends AppCompatActivity {
         adapter = new PersonalFollowAdapter(followers, R.layout.followers_listview_item, PersonalFollowListActivity.this);
         lvFollowers.setAdapter(adapter);
     }
+
     private void requestData() {
         RequestBody body = RequestBody.create(MediaType.parse("text/plain"),"1");
         Request request = new Request.Builder().url(Constant.URL_FOLLOW).post(body).build();

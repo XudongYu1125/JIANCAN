@@ -36,8 +36,14 @@ public class PersonalFansListActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_personal_fans);
         User user = new User();
-        user.setNickname("bbbbb");
+        user.setNickname("山河永蔚");
         fans.add(user);
+        User user1 = new User();
+        user1.setNickname("山河永蔚");
+        fans.add(user1);
+        User user2 = new User();
+        user2.setNickname("山河永蔚");
+        fans.add(user2);
         findViews();
 //        requestData();
     }

@@ -189,7 +189,7 @@ public class PersonalCollectionListActivity extends AppCompatActivity {
         delete = findViewById(R.id.ll_personal_delete);
         mLlEditBar = findViewById(R.id.ll_edit_bar);
         lvFoods = findViewById(R.id.lv_trends);
-        adapter = new PersonalCollectionAdapter(foods,R.layout.trends_listview_item,PersonalCollectionListActivity.this);
+        adapter = new PersonalCollectionAdapter(foods,R.layout.trends_listview_item,PersonalCollectionListActivity.this,stateCheckedMap);
         lvFoods.setAdapter(adapter);
     }
     /**
