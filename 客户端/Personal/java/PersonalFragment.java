@@ -128,6 +128,10 @@ public class PersonalFragment extends Fragment {
                     break;
                 case R.id.ll_settings:
                     //跳转到用户的设置界面
+                    Log.e("跳转到","收藏设置界面");
+                    intent = new Intent();
+                    intent.setClass(getContext(),PersonlSettingsActivity.class);
+                    startActivity(intent);
                     break;
             }
         }

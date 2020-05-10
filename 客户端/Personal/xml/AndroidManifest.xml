@@ -19,13 +19,15 @@
             </intent-filter>
         </activity>
         <activity android:name=".TabHostActivity"/>
-        <activity android:name=".PersonalChangeMessageActivity"/>
-        <activity android:name=".PersonalTrendsListActivity"/>
-        <activity android:name=".PersonalChangeNameActivity"/>
-        <activity android:name=".PersonalFollowListActivity"/>
-        <activity android:name=".PersonalFansListActivity"/>
-        <activity android:name=".PersonalHistroyListActivity"/>
-        <activity android:name=".PersonalCollectionListActivity"/>
+        <activity android:name=".personal.activityAndFragment.PersonalChangeMessageActivity"/>
+        <activity android:name=".personal.activityAndFragment.PersonalTrendsListActivity"/>
+        <activity android:name=".personal.activityAndFragment.PersonalChangeNameActivity"/>
+        <activity android:name=".personal.activityAndFragment.PersonalFollowListActivity"/>
+        <activity android:name=".personal.activityAndFragment.PersonalFansListActivity"/>
+        <activity android:name=".personal.activityAndFragment.PersonalHistroyListActivity"/>
+        <activity android:name=".personal.activityAndFragment.PersonalCollectionListActivity"/>
+        <activity android:name=".personal.activityAndFragment.PersonlSettingsActivity"/>
+        <activity android:name=".personal.activityAndFragment.PeraonalChangePasswordActivity"/>
     </application>
 
 </manifest>
