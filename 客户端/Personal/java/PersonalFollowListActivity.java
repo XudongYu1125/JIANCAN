@@ -1,16 +1,20 @@
 package com.example.user.jiancan.personal.activityAndFragment;
 
 import android.annotation.SuppressLint;
+import android.content.DialogInterface;
 import android.graphics.Color;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
+import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
 import android.util.Log;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.ListView;
+import android.widget.Toast;
 
 import com.example.user.jiancan.Constant;
+import com.example.user.jiancan.personal.util.PersonalFansAdapter;
 import com.example.user.jiancan.personal.util.PersonalFollowAdapter;
 import com.example.user.jiancan.R;
 import com.example.user.jiancan.personal.entity.User;
@@ -31,7 +35,7 @@ import okhttp3.Request;
 import okhttp3.RequestBody;
 import okhttp3.Response;
 
-public class PersonalFollowListActivity extends AppCompatActivity {
+public class PersonalFollowListActivity extends AppCompatActivity implements AdapterView.OnItemClickListener {
     private ListView lvFollowers;
     private PersonalFollowAdapter adapter;
     private List<User> followers = new ArrayList<>();
@@ -50,11 +54,13 @@ public class PersonalFollowListActivity extends AppCompatActivity {
         user2.setNickname("山河永蔚2");
         followers.add(user2);
         findViews();
+        lvFollowers.setOnItemClickListener(this);
 //        requestData();
     }
+
     private void findViews() {
         lvFollowers = findViewById(R.id.lv_follwers);
-        adapter = new PersonalFollowAdapter(followers, R.layout.followers_listview_item, PersonalFollowListActivity.this);
+        adapter = new PersonalFollowAdapter(followers, R.layout.followers_listview_item, PersonalFollowListActivity.this,mListener);
         lvFollowers.setAdapter(adapter);
     }
 
@@ -78,4 +84,36 @@ public class PersonalFollowListActivity extends AppCompatActivity {
             }
         });
     }
+
+    @Override
+    public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
+
+    }
+
+    /**
+     * 实现类，响应按钮点击事件
+     */
+    private PersonalFollowAdapter.MyClickListener mListener = new PersonalFollowAdapter.MyClickListener() {
+        @Override
+        public void myOnClick(final int position, View v) {
+            AlertDialog.Builder adBulider=new AlertDialog.Builder(PersonalFollowListActivity.this);
+            //对构造器进行设置
+            adBulider.setTitle("提示");
+            adBulider.setMessage("您确定要取消关注此用户吗？");
+            adBulider.setPositiveButton("确定",
+                    new DialogInterface.OnClickListener() {
+                        @Override
+                        public void onClick(DialogInterface dialog, int which) {
+                            followers.remove(position);
+                            adapter.notifyDataSetChanged();
+                            dialog.dismiss();
+                        }
+                    });
+            adBulider.setNegativeButton("取消",null);
+            AlertDialog alertDialog = adBulider.create();
+            //设置对话框不能被取消（点击页面其他地方，对话框自动关闭）
+            alertDialog.setCancelable(false);
+            alertDialog.show();
+        }
+    };
 }

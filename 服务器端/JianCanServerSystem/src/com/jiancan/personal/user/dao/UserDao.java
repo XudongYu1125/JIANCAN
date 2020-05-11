@@ -55,7 +55,7 @@ public class UserDao {
 		query.setParameter(1, user.getNickname());
 		query.setParameter(2, user.getPhone());
 		query.setParameter(3, user.getPassword());
-		query.setParameter(4, user.getImageUrl());
+		query.setParameter(4, user.getId()+".jpg");
 		int i =query.executeUpdate();
 		txTransaction.commit();
 		return i;
@@ -66,7 +66,7 @@ public class UserDao {
 		Query query = session.createQuery(sql);
 		query.setParameter(0, id);
 		List<User>users = (List<User>)query.list();
-		if(users==null) {
+		if(users!=null) {
 			return users.get(0);
 		}
 		return null;
@@ -77,7 +77,7 @@ public class UserDao {
 		Query query = session.createQuery(sql);
 		query.setParameter(0, nickname);
 		List<User>users = (List<User>)query.list();
-		if(users==null) {
+		if(users!=null) {
 			return users.get(0);
 		}
 		return null;

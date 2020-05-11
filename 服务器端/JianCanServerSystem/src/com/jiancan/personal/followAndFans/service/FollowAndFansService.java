@@ -4,6 +4,7 @@ package com.jiancan.personal.followAndFans.service;
 import javax.annotation.Resource;
 import org.springframework.stereotype.Service;
 import com.google.gson.Gson;
+import com.google.gson.GsonBuilder;
 import com.jiancan.personal.followAndFans.dao.FollowAndFansDao;
 
 @Service
@@ -17,9 +18,9 @@ public class FollowAndFansService {
 		return followAndFansDao.deleteFollow(userId, followId)+"";
 	}
 	public String findFanss(int userId){
-		return new Gson().toJson(followAndFansDao.selectFanss(userId));
+		return new GsonBuilder().serializeNulls().create().toJson(followAndFansDao.selectFanss(userId));
 	}
 	public String findFollows(int userId){
-		return new Gson().toJson(followAndFansDao.selectFollows(userId));
+		return new GsonBuilder().serializeNulls().create().toJson(followAndFansDao.selectFollows(userId));
 	}
 }
