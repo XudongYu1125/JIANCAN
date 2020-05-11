@@ -1,6 +1,8 @@
 package com.example.user.jiancan.personal.util;
 
+import android.annotation.SuppressLint;
 import android.content.Context;
+import android.graphics.Color;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -62,10 +64,19 @@ public class PersonalFansAdapter extends BaseAdapter {
             viewHolder = (ViewHolder) convertView.getTag();
         }
         viewHolder.tvFansName.setText(fans.get(position).getNickname());
+
+        final ViewHolder finalViewHolder = viewHolder;
         viewHolder.cancel.setOnClickListener(new View.OnClickListener() {
+            @SuppressLint("ResourceAsColor")
             @Override
             public void onClick(View v) {
-                fans.remove(position);
+                if (finalViewHolder.cancel.getText().equals("已关注")){
+                    finalViewHolder.cancel.setText("关注");
+                    finalViewHolder.cancel.setTextColor(Color.BLUE);
+                }else{
+                    finalViewHolder.cancel.setText("已关注");
+                    finalViewHolder.cancel.setTextColor(Color.BLACK);
+                }
                 notifyDataSetChanged();
             }
         });

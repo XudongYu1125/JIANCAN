@@ -1,0 +1,62 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout android:layout_height="match_parent"
+    android:layout_width="match_parent"
+    android:orientation="vertical"
+    android:background="@color/colorBackground"
+    xmlns:android="http://schemas.android.com/apk/res/android">
+    <LinearLayout
+        android:background="@android:color/white"
+        android:id="@+id/ll_change_password"
+        android:orientation="horizontal"
+        android:gravity="center_vertical"
+        android:layout_width="match_parent"
+        android:layout_height="70dp">
+        <TextView
+            android:text="修改密码"
+            android:layout_marginLeft="20dp"
+            android:textSize="20dp"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content" />
+        <ImageView
+            android:src="@drawable/personal_right_arrow"
+            android:layout_marginLeft="220dp"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content" />
+    </LinearLayout>
+    <TextView
+        android:background="@color/colorBackground"
+        android:layout_width="match_parent"
+        android:layout_height="2dp" />
+    <LinearLayout
+        android:id="@+id/ll_about"
+        android:background="@android:color/white"
+        android:orientation="horizontal"
+        android:gravity="center_vertical"
+        android:layout_width="match_parent"
+        android:layout_height="70dp">
+        <TextView
+            android:text="关于简餐"
+            android:layout_marginLeft="20dp"
+            android:textSize="20dp"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content" />
+        <ImageView
+            android:src="@drawable/personal_right_arrow"
+            android:layout_marginLeft="220dp"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content" />
+    </LinearLayout>
+    <TextView
+        android:background="@color/colorBackground"
+        android:layout_width="match_parent"
+        android:layout_height="2dp" />
+    <TextView
+        android:id="@+id/tv_logout"
+        android:textSize="20dp"
+        android:layout_marginTop="4dp"
+        android:gravity="center"
+        android:background="@android:color/white"
+        android:text="退出登录"
+        android:layout_width="match_parent"
+        android:layout_height="60dp" />
+</LinearLayout>

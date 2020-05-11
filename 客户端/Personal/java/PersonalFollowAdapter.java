@@ -2,7 +2,9 @@ package com.example.user.jiancan.personal.util;
 
 import android.annotation.SuppressLint;
 import android.content.Context;
+import android.content.DialogInterface;
 import android.graphics.Color;
+import android.support.v7.app.AlertDialog;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -14,6 +16,8 @@ import android.widget.LinearLayout;
 import android.widget.TextView;
 
 import com.example.user.jiancan.R;
+import com.example.user.jiancan.personal.activityAndFragment.PersonalCollectionListActivity;
+import com.example.user.jiancan.personal.activityAndFragment.PersonalFollowListActivity;
 import com.example.user.jiancan.personal.entity.User;
 
 import java.util.List;
@@ -23,11 +27,13 @@ public class PersonalFollowAdapter extends BaseAdapter {
     private int item_id;
     private Context context;
     ViewHolder viewHolder ;
+    private MyClickListener mListener;
 
-    public PersonalFollowAdapter(List<User> followers, int item_id, Context context) {
+    public PersonalFollowAdapter(List<User> followers, int item_id, Context context,MyClickListener listener) {
         this.followers = followers;
         this.item_id = item_id;
         this.context = context;
+        this.mListener = listener;
     }
     @Override
     public int getCount() {
@@ -66,20 +72,25 @@ public class PersonalFollowAdapter extends BaseAdapter {
             viewHolder = (ViewHolder) convertView.getTag();
         }
         viewHolder.tvFollowersName.setText(followers.get(position).getNickname());
-        viewHolder.cancel.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                followers.remove(position);
-                notifyDataSetChanged();
-            }
-        });
+        viewHolder.cancel.setOnClickListener(mListener);
+        viewHolder.cancel.setTag(position);
         //Glide.with(context).load(Constant.BASE_URL +"paperimg/"+ followers.get(position).getImageUrl()).into(viewHolder.ivUser);
         return convertView;
     }
-    private class ViewHolder{
+    public class ViewHolder{
         public TextView tvFollowersName;
         public LinearLayout llFollowers;
         public ImageView ivUser;
         public Button cancel;
+    }
+    public static abstract class MyClickListener implements View.OnClickListener {
+        /**
+         * 基类的onClick方法
+         */
+        @Override
+        public void onClick(View v) {
+            myOnClick((Integer) v.getTag(), v);
+        }
+        public abstract void myOnClick(int position, View v);
     }
 }
