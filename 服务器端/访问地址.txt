@@ -80,8 +80,8 @@
 	 通过食物搜索评论：
 		地址：/comment/getByUser/{foodId}
 		说明：请求地址中传入foodId，返回属于此食物的comment的list列表 Json串，可能为null
-		
-	 
+
+
 食物相关：
 
 	 添加食物：
