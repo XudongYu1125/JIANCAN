@@ -84,6 +84,13 @@
 		地址：/comment/getByUser/{foodId}
 		说明：请求地址中传入foodId，返回属于此食物的comment的list列表 Json串，可能为null
 
+	点赞评论：
+		地址：/comment/praiseComment/{Id}
+		说明：请求地址中传入Id，返回一个boolean， 表示comment点赞是否成功
+
+	取消点赞：
+		地址：/comment/abolishComment/{Id}
+		说明：请求地址中传入Id，返回一个boolean， 表示comment取消点赞是否成功
 
 食物相关：
 
@@ -114,6 +121,14 @@
 	 上传食物视频：
 		地址：/food/uploadVideo
 		说明：输入流中传入food Json串，图片文件或视频文件 ，返回一个food Json串，若返回null表示添加失败
+
+	点赞食物：
+		地址：/food/praiseFood/{Id}
+		说明：请求地址中传入Id，返回一个boolean， 表示food点赞是否成功
+	
+	取消点赞：
+		地址：/food/abolishFood/{Id}
+		说明：请求地址中传入Id，返回一个boolean， 表示food取消点赞是否成功
 		
 		
 食物种类相关：
