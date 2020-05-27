@@ -1,0 +1,20 @@
+!SESSION 2020-05-21 23:21:36.462 -----------------------------------------------
+eclipse.buildId=4.12.0.I20190605-1800
+java.version=1.8.0_241
+java.vendor=Oracle Corporation
+BootLoader constants: OS=win32, ARCH=x86_64, WS=win32, NL=zh_CN
+Framework arguments:  -product org.eclipse.epp.package.reporting.product
+Command-line arguments:  -os win32 -ws win32 -arch x86_64 -product org.eclipse.epp.package.reporting.product
+
+!ENTRY org.eclipse.core.jobs 4 2 2020-05-21 23:22:01.273
+!MESSAGE An internal error occurred during: "Deferred Early Start".
+!STACK 0
+java.lang.NullPointerException
+	at org.eclipse.core.internal.runtime.InternalPlatform.getLog(InternalPlatform.java:360)
+	at org.eclipse.core.runtime.Plugin.getLog(Plugin.java:237)
+	at org.eclipse.oomph.util.OomphPlugin.getLog(OomphPlugin.java:210)
+	at org.eclipse.oomph.util.OomphPlugin.log(OomphPlugin.java:225)
+	at org.eclipse.oomph.util.OomphPlugin.log(OomphPlugin.java:236)
+	at org.eclipse.oomph.internal.ui.EarlyStart.run(EarlyStart.java:116)
+	at org.eclipse.oomph.internal.ui.EarlyStart$1.run(EarlyStart.java:91)
+	at org.eclipse.core.internal.jobs.Worker.run(Worker.java:63)

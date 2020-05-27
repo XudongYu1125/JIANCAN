@@ -152,7 +152,7 @@ public class FoodController {
 	        JSONObject res = new JSONObject();
 	        
 	        res.put("list", service.listFood());
-			
+	              	
 			outputStream.write(res.toString().getBytes("UTF-8"));
 			System.out.println("res:" + res.toString());
 			

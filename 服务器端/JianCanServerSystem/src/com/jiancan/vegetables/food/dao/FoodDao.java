@@ -81,6 +81,8 @@ public class FoodDao {
 	public List<Food> selectAll(){
 		
 		try {
+			
+			
 					
 			Session session = this.sessionFactory.openSession();
 			
