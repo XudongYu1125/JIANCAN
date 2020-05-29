@@ -18,7 +18,7 @@ import com.jiancan.personal.user.service.UserService;
 
 @Controller
 @ResponseBody
-@RequestMapping("/user")
+@RequestMapping(value = "/user",produces="application/json;charset=UTF-8")
 public class UserController {
 	@Resource
 	private UserService userService;

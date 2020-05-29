@@ -11,7 +11,7 @@ import org.springframework.web.bind.annotation.ResponseBody;
 import com.jiancan.personal.followAndFans.service.FollowAndFansService;
 
 @Controller
-@RequestMapping("/faf")
+@RequestMapping(value = "/faf",produces="application/json;charset=UTF-8")
 @ResponseBody
 public class FollowAndFansController {
 	@Resource
@@ -23,7 +23,7 @@ public class FollowAndFansController {
 		return followAndFansService.findFollows(userId);
 	}
 	//通过userId获得粉丝列表
-	@RequestMapping(value = "/fsl{userId}",method = RequestMethod.GET)
+	@RequestMapping(value = "/fsl/{userId}",method = RequestMethod.GET)
 	public String fansList(@PathVariable int userId){
 		System.out.println("//通过userId获得粉丝列表");
 		return followAndFansService.findFanss(userId);

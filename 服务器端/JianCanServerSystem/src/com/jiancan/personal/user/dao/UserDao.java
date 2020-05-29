@@ -25,7 +25,7 @@ public class UserDao {
 	public int insertUser(User user) {
 		Session session = sessionFactory.getCurrentSession();
 		Transaction txTransaction = session.beginTransaction();
-		String sql= "insert into user(sex,nickname,phone,password,imageurl) values(?,?,?,?,?)";
+		String sql= "insert into User(sex,nickname,phone,password,imageurl) values(?,?,?,?,?)";
 		Query query = session.createSQLQuery(sql);
 		query.setParameter(0, user.getSex());
 		query.setParameter(1, user.getNickname());

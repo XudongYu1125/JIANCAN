@@ -21,9 +21,9 @@ public class CollectAndRecordService {
 	public String remove(int userId,int foodId,int type) {
 		return collectAndRecordDao.delete(userId, foodId, type)+"";
 	}
-	public String removeSomeRecords(int userId,String foodIds,int type) {
+	public String removeSome(int userId,String foodIds,int type) {
 		List<Integer> foodIdList = new Gson().fromJson(foodIds, new TypeToken<List<Integer>>(){}.getType());
-		return collectAndRecordDao.deleteSomeRecords(userId, foodIdList, type)+"";
+		return collectAndRecordDao.deleteSome(userId, foodIdList, type)+"";
 	}
 	public String findFoods(int userId,int type) {
 		List<Food> foods= collectAndRecordDao.selectRecordsByUserId(userId, type);

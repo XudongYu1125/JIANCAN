@@ -11,7 +11,7 @@ import com.jiancan.personal.collectAndRecord.service.CollectAndRecordService;
 
 @Controller
 @ResponseBody
-@RequestMapping("/car")
+@RequestMapping(value = "/car",produces="application/json;charset=UTF-8")
 public class CollectAndRecordController {
 	@Resource
 	CollectAndRecordService collectAndRecordService;
@@ -26,6 +26,13 @@ public class CollectAndRecordController {
 	public String removeCollect(@PathVariable int userId,@PathVariable int foodId) {
 		System.out.println("//通过userId和foodId删除收藏");
 		return collectAndRecordService.remove(userId, foodId, 0);
+	}
+	
+	//通过userId和foodIdList批量删除收藏
+		@RequestMapping(value = "/rscs/{userId}/{foodIds}",method = RequestMethod.GET)
+	public String removeSomeCollects(@PathVariable int userId,@PathVariable String foodIds) {
+		System.out.println("//通过userId和foodIdList批量删除收藏");
+		return collectAndRecordService.removeSome(userId, foodIds, 0);
 	}
 	//通过userId查询收藏
 	@RequestMapping(value = "/fc/{userId}",method = RequestMethod.GET)
@@ -49,7 +56,7 @@ public class CollectAndRecordController {
 	@RequestMapping(value = "/rsrs/{userId}/{foodIds}",method = RequestMethod.GET)
 	public String removeSomeRecords(@PathVariable int userId,@PathVariable String foodIds) {
 		System.out.println("//通过userId和foodIdList批量删除历史记录");
-		return collectAndRecordService.removeSomeRecords(userId, foodIds, 1);
+		return collectAndRecordService.removeSome(userId, foodIds, 1);
 	}
 	//通过userId查询历史记录
 	@RequestMapping(value = "/fr/{userId}",method = RequestMethod.GET)
