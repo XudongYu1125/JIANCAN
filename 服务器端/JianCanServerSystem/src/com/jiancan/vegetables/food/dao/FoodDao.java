@@ -150,7 +150,7 @@ public class FoodDao {
 			
 			Session session = this.sessionFactory.openSession();
 	
-			String hql = "from Food f where food.vegetablesId = ?";
+			String hql = "from Food f where f.vegetablesId = ?";
 			
 			Query query = session.createQuery(hql);
 			query.setParameter(0, vegetablesId);
