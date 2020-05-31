@@ -12,6 +12,7 @@ import org.hibernate.Transaction;
 import org.springframework.beans.BeanUtils;
 import org.springframework.stereotype.Repository;
 
+import com.jiancan.entity.personal.FollowAndFans;
 import com.jiancan.entity.personal.TUser;
 import com.jiancan.entity.personal.User;
 
@@ -47,15 +48,14 @@ public class FollowAndFansDao {
 		return selectTUsers(query.list());
 	}
 	public int insertFollow(int userId,int followId) {
+		FollowAndFans followAndFans = new FollowAndFans();
+		followAndFans.setFansId(userId);
+		followAndFans.setFollowId(followId);
 		Session session = sessionFactory.getCurrentSession();
 		Transaction txTransaction = session.beginTransaction();
-		String sql="insert into FollowAndFans(followId,fansId) values(?,?)";
-		Query query = session.createSQLQuery(sql);
-		query.setParameter(0, followId);
-		query.setParameter(1, userId);
-		int i = query.executeUpdate();
+		session.save(followAndFans);
 		txTransaction.commit();
-		return i;
+		return 1;
 	}
 	public int deleteFollow(int userId,int followId) {
 		Session session = sessionFactory.getCurrentSession();

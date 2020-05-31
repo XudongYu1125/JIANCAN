@@ -10,6 +10,8 @@ import org.hibernate.Session;
 import org.hibernate.SessionFactory;
 import org.hibernate.Transaction;
 import org.springframework.stereotype.Repository;
+
+import com.jiancan.entity.personal.CollectAndRecord;
 import com.jiancan.entity.vegetables.Food;
 
 @Repository
@@ -18,16 +20,15 @@ public class CollectAndRecordDao {
 	private SessionFactory sessionFactory;
 	//userId和foodId添加记录
 	public int insert(int userId,int foodId,int type) {
+		CollectAndRecord collectAndRecord = new CollectAndRecord();
+		collectAndRecord.setUserId(userId);
+		collectAndRecord.setFoodId(foodId);
+		collectAndRecord.setType(type);
 		Session session = sessionFactory.getCurrentSession();
 		Transaction txTransaction = session.beginTransaction();
-		String str="insert into CollectAndRecord(userId,foodId,type) values(?,?,?)";
-		Query query = session.createSQLQuery(str);
-		query.setParameter(0, userId);
-		query.setParameter(1, foodId);
-		query.setParameter(2, type);
-		int i = query.executeUpdate();
+		session.save(collectAndRecord);
 		txTransaction.commit();
-		return i;
+		return 1;
 		
 	}
 	//userId和foodId删除记录
