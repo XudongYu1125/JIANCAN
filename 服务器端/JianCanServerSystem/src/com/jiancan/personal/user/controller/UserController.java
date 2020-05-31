@@ -53,15 +53,14 @@ public class UserController {
 		return userService.loginByPhone(phone);
 	}
 	//上传头像
-	@RequestMapping(value = "/uploada/{imgname}",method = RequestMethod.GET)
+	@RequestMapping(value = "/upload/{imgname}",method = RequestMethod.POST)
 	public void uploadAvatar(@PathVariable String imgname,HttpServletRequest request) throws IOException {
-		String str = request.getServletContext().getRealPath("/avatarimg");
-		System.out.println(str);
-		System.out.println("//上传头像");
-		if(!(imgname==null)) {
+		try {
+			request.setCharacterEncoding("utf-8");
+			System.out.println("upload...............................");
 			InputStream input =  request.getInputStream();
-			String realPath = request.getServletContext().getRealPath("/avatarimg");
-			File file = new File(realPath + "/" + imgname);
+			String realPath = request.getServletContext().getRealPath(File.separator);
+			File file = new File(realPath + File.separator +"upload"+  File.separator +"avatarimgs"+ File.separator + imgname+".jpg");
 			FileOutputStream fileOutputStream = new FileOutputStream(file);
 			byte[] a = new byte[1024];
 			int len;
@@ -71,7 +70,10 @@ public class UserController {
 			input.close();
 			fileOutputStream.flush();
 			fileOutputStream.close();
+		} catch (Exception e) {
+			// TODO: handle exception
 		}
+		
 	}
 	//通过userId获得user
 	@RequestMapping(value = "/getu/{id}",method = RequestMethod.GET)

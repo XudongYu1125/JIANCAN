@@ -8,7 +8,7 @@
        地址：/car/rc/{userId}/{foodId}
        说明：传入用户Id和食物Id，返回0为删除失败，否则删除成功
    批量删除收藏：
-       地址：/car/rc/{userId}/{foodIds}
+       地址：/car/rscs/{userId}/{foodIds}
        说明：传入用户Id和食物Gson形式foodIds，返回0为删除失败，否则删除成功
     查询收藏列表：
       地址：/car/fc/{userId}
