@@ -68,8 +68,10 @@ public class CollectAndRecordDao {
 		for(int i:foodIdList) {
 			Query query = session.createQuery(sql);
 			query.setParameter(0, i);
-			Food food = (Food)query.list().get(0);
-			foods.add(food);
+			if(query.list().size()!=0) {
+				Food food = (Food)query.list().get(0);
+				foods.add(food);
+			}
 		}
 		return foods;	
 	}
