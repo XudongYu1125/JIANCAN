@@ -1,11 +1,14 @@
 package com.jiancan.personal.user.service;
 
+import java.util.List;
+
 import javax.annotation.Resource;
 
 import org.springframework.stereotype.Service;
 
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
+import com.jiancan.entity.personal.TUser;
 import com.jiancan.entity.personal.User;
 import com.jiancan.personal.user.dao.UserDao;
 
@@ -61,5 +64,9 @@ public class UserService {
 		}else{
 			return new GsonBuilder().serializeNulls().create().toJson(user);
 		}
+	}
+	public String findAllTUsers() {
+		List<TUser> tUsers = userDao.seleAllTUsers();
+		return new GsonBuilder().serializeNulls().create().toJson(tUsers);
 	}
 }

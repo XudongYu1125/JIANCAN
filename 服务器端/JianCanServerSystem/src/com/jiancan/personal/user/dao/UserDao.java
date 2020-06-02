@@ -1,5 +1,6 @@
 package com.jiancan.personal.user.dao;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import javax.annotation.Resource;
@@ -8,8 +9,10 @@ import org.hibernate.Query;
 import org.hibernate.Session;
 import org.hibernate.SessionFactory;
 import org.hibernate.Transaction;
+import org.springframework.beans.BeanUtils;
 import org.springframework.stereotype.Repository;
 
+import com.jiancan.entity.personal.TUser;
 import com.jiancan.entity.personal.User;
 
 @Repository
@@ -92,5 +95,17 @@ public class UserDao {
 			return users.get(0);
 		}
 		return null;
+	}
+	public List<TUser> seleAllTUsers() {
+		Session session = sessionFactory.getCurrentSession();
+		Query query = session.createQuery("from User");
+		List<TUser> tUsers = new ArrayList<TUser>();
+		List<User>users = (List<User>)query.list();
+		for(User user:users) {
+			TUser tUser = new TUser();
+			BeanUtils.copyProperties(query.list().get(0),tUser);
+			tUsers.add(tUser);
+		}
+		return tUsers;
 	}
 }
