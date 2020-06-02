@@ -15,6 +15,28 @@ import com.jiancan.personal.collectAndRecord.service.CollectAndRecordService;
 public class CollectAndRecordController {
 	@Resource
 	CollectAndRecordService collectAndRecordService;
+	
+	//通过userId和foodId添加下载
+	@RequestMapping(value = "/ad/{userId}/{foodId}",method = RequestMethod.GET)
+	public String addDownload(@PathVariable int userId,@PathVariable int foodId) {	
+		System.out.println("//通过userId和foodId添加收藏");
+		return collectAndRecordService.add(userId, foodId, 2);
+	}
+	
+	//通过userId和foodId删除下载
+	@RequestMapping(value = "/rd/{userId}/{foodId}",method = RequestMethod.GET)
+	public String removeDownload(@PathVariable int userId,@PathVariable int foodId) {
+		System.out.println("//通过userId和foodId删除收藏");
+		return collectAndRecordService.remove(userId, foodId, 2);
+	}
+	
+	//通过userId查询下载
+	@RequestMapping(value = "/fd/{userId}",method = RequestMethod.GET)
+	public String findDownloadFoods(@PathVariable int userId) {
+		System.out.println("//通过userId查询下载");
+		return collectAndRecordService.findFoods(userId, 2);
+	}
+	
 	//通过userId和foodId添加收藏
 	@RequestMapping(value = "/ac/{userId}/{foodId}",method = RequestMethod.GET)
 	public String addCollect(@PathVariable int userId,@PathVariable int foodId) {	
