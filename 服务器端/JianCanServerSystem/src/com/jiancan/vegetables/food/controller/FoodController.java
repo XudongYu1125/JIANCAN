@@ -266,7 +266,7 @@ public class FoodController {
 			    		
 			    		String fileName = phone + image.getOriginalFilename();
 			  
-			    		File file = new File(filepath + File.separator + fileName+".png");
+			    		File file = new File(filepath + File.separator + fileName);
 			    		
 			    		new FileOutputStream(file).write(image.getBytes());
 			    		
