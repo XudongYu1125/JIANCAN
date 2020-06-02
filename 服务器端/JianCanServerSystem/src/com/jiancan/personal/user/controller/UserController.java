@@ -81,4 +81,9 @@ public class UserController {
 		System.out.println("//通过userId获得user");
 		return userService.findUserById(id);
 	}
+	@RequestMapping(value = "/getatu",method = RequestMethod.GET)
+	public String getTUsers() {
+		System.out.println("查询所有用户，TUser");
+		return userService.findAllTUsers();
+	}
 }

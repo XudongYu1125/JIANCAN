@@ -63,7 +63,8 @@
      通过userId得到gson形式user对象
        地址：/user/getu/{id}
        说明：传入userId，返回0用户不存在，否则返回Gson形式User对象
-
+     得到所有TUser形式用户列表
+         地址：user/getatu
 
 评论相关：
 
