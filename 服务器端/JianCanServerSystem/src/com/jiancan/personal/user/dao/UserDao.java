@@ -103,7 +103,7 @@ public class UserDao {
 		List<User>users = (List<User>)query.list();
 		for(User user:users) {
 			TUser tUser = new TUser();
-			BeanUtils.copyProperties(query.list().get(0),tUser);
+			BeanUtils.copyProperties(user,tUser);
 			tUsers.add(tUser);
 		}
 		return tUsers;
