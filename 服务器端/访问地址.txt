@@ -113,6 +113,13 @@
 	 查询所有食物：
 		地址：/food/getAll
 		说明：返回所有food的一个list， 可能为null
+
+	通过Id搜索食物
+
+		地址：/food/getById/{Id}
+		
+		说明：请求地址中传入Id，返回属于此用户的food的Json串，可能为null
+
 	 
 	 通过用户搜索食物
 		地址：/food/getByUser/{userId}

@@ -165,6 +165,32 @@ public class FoodController {
 		
 	}
 	
+	@RequestMapping("/getById/{Id}")
+	public void getFoodById(@PathVariable int Id, HttpServletRequest request, HttpServletResponse response) {
+		
+		System.out.println("GetById Food");
+		
+		try {
+			
+			request.setCharacterEncoding("UTF-8");
+			response.setCharacterEncoding("UTF-8");
+			
+			OutputStream outputStream = response.getOutputStream();
+			
+	        JSONObject res = new JSONObject();
+	        
+	        res.put("food", service.findFoodById(Id));
+			
+			outputStream.write(res.toString().getBytes("UTF-8"));
+			System.out.println("res:" + res.toString());
+	        
+	        
+		}catch (Exception e) {
+			e.printStackTrace();
+
+		}    
+		
+	}
 	
 	@RequestMapping("/getByUser/{userId}")
 	public void getFoodByUser(@PathVariable int userId, HttpServletRequest request, HttpServletResponse response) {
