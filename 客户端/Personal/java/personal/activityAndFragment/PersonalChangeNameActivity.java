@@ -1,20 +1,29 @@
 package com.example.user.jiancan.personal.activityAndFragment;
 
+import android.app.Activity;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.os.Bundle;
+import android.os.Handler;
+import android.os.Message;
 import android.support.v7.app.AppCompatActivity;
 import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.Toast;
 
 import com.example.user.jiancan.Constant;
 import com.example.user.jiancan.R;
+import com.example.user.jiancan.personal.entity.Food;
 import com.example.user.jiancan.personal.entity.User;
 import com.google.gson.Gson;
+import com.google.gson.GsonBuilder;
+import com.google.gson.reflect.TypeToken;
 
 import java.io.IOException;
+import java.lang.reflect.Type;
+import java.util.List;
 
 import okhttp3.Call;
 import okhttp3.Callback;
@@ -32,10 +41,18 @@ public class PersonalChangeNameActivity extends AppCompatActivity {
     private OkHttpClient okHttpClient;
     private SharedPreferences sharedPreferences;
     private User user;
+    private static Activity ac;
+    private Handler myHandler = new Handler() {
+        public void handleMessage(Message msg) {
+            Toast.makeText(ac,"修改信息失败！",Toast.LENGTH_SHORT).show();
+            super.handleMessage(msg);
+        }
+    };
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_change_name);
+        ac = this;
         sharedPreferences = getSharedPreferences("loginInfo",MODE_PRIVATE);
         user = new Gson().fromJson(sharedPreferences.getString("user",null),User.class);
         intent = getIntent();
@@ -54,28 +71,35 @@ public class PersonalChangeNameActivity extends AppCompatActivity {
     }
 
     private void requestData(final User user) {
-        RequestBody body = RequestBody.create(MediaType.parse("text/plain"),new Gson().toJson(user));
-        final Request request = new Request.Builder().url(Constant.URL_CHANGE_NAME).post(body).build();
-        Call call = okHttpClient.newCall(request);
+        Request request = new Request.Builder().url(Constant.URL_CHANGE_USER + new Gson().toJson(user)).build();
+        final Call call = okHttpClient.newCall(request);
+        //发送请求
         call.enqueue(new Callback() {
             @Override
+            //请求失败时回调
             public void onFailure(Call call, IOException e) {
                 e.printStackTrace();
             }
             @Override
+            //请求成功后回调
             public void onResponse(Call call, Response response) throws IOException {
+                //不直接更新界面
                 String result = response.body().string();
-                if (result.equals("true")){
+                if (result.equals("0")){
+                    Message message = new Message();
+                    message.obj = "";
+                    myHandler.sendMessage(message);
+                }else {
                     SharedPreferences.Editor editor = sharedPreferences.edit();
                     editor.putString("user",new Gson().toJson(user));
                     editor.commit();
                     Log.e("222","成功");
                     finish();
-                }else {
-                    Log.e("111","失败");
                 }
             }
+
         });
+
     }
 
     private void findViews() {

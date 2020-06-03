@@ -40,9 +40,11 @@ import java.net.URL;
 public class PersonalChangeMessageActivity extends AppCompatActivity {
     private LinearLayout llChangeName;
     private LinearLayout llChangeAvatar;
+    private LinearLayout llChangeSex;
     private TextView tvName;
     private ImageView ivAvatar;
     private TextView tvId;
+    private TextView tvSex;
     private SharedPreferences sharedPreferences;
     private User user;
     private Intent intent;
@@ -52,11 +54,11 @@ public class PersonalChangeMessageActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_personal_message);
-//        sharedPreferences = getSharedPreferences("loginInfo", MODE_PRIVATE);
-//        user = new Gson().fromJson(sharedPreferences.getString("user", null), User.class);
+        sharedPreferences = getSharedPreferences("loginInfo", MODE_PRIVATE);
+        user = new Gson().fromJson(sharedPreferences.getString("user", null), User.class);
         findViews();
         setOnclicked();
-        //setContents();
+        setContents();
         myIntent = getIntent();
         setResult(101,myIntent);
     }
@@ -66,32 +68,36 @@ public class PersonalChangeMessageActivity extends AppCompatActivity {
         if (time == null){
             RequestOptions options = new RequestOptions().error(R.drawable.default_vatar);
             Glide.with(this)
-                    .load(Constant.BASE_URL + "avatarimg/" + user.getImageUrl())
+                    .load(Constant.BASE_URL + "/upload/avatarimgs/" + user.getImageUrl())
                     .apply(options)
                     .into(ivAvatar);
         }else {
             RequestOptions options = new RequestOptions().signature(new ObjectKey(time)).error(R.drawable.default_vatar);
             Glide.with(this)
-                    .load(Constant.BASE_URL + "avatarimg/" + user.getImageUrl())
+                    .load(Constant.BASE_URL + "/upload/avatarimgs/" + user.getImageUrl())
                     .apply(options)
                     .into(ivAvatar);
         }
 
         tvName.setText(user.getNickname());
         tvId.setText(user.getId() + "");
+        tvSex.setText(user.getSex());
     }
 
 
     private void setOnclicked() {
         llChangeAvatar.setOnClickListener(new onclicked());
         llChangeName.setOnClickListener(new onclicked());
+        llChangeSex.setOnClickListener(new onclicked());
     }
 
     private void findViews() {
         llChangeName = findViewById(R.id.ll_change_name);
         llChangeAvatar = findViewById(R.id.ll_change_avatar);
+        llChangeSex = findViewById(R.id.ll_change_sex);
         tvName = findViewById(R.id.tv_change_name);
         ivAvatar = findViewById(R.id.iv_change_avatar);
+        tvSex = findViewById(R.id.tv_change_sex);
         tvId = findViewById(R.id.tv_my_userid);
     }
 
@@ -104,6 +110,11 @@ public class PersonalChangeMessageActivity extends AppCompatActivity {
                     intent.setClass(PersonalChangeMessageActivity.this, PersonalChangeNameActivity.class);
                     intent.putExtra("name", tvName.toString());
                     startActivityForResult(intent, 100);
+                    break;
+                case R.id.ll_change_sex:
+                    intent = new Intent();
+                    intent.setClass(PersonalChangeMessageActivity.this, PersonalChangeSexActivity.class);
+                    startActivityForResult(intent, 200);
                     break;
                 case R.id.ll_change_avatar:
                     Log.e("11", "22");
@@ -137,6 +148,12 @@ public class PersonalChangeMessageActivity extends AppCompatActivity {
                 tvName.setText(user.getNickname());
                 Toast.makeText(PersonalChangeMessageActivity.this, "修改成功", Toast.LENGTH_SHORT).show();
                 break;
+            case 201:
+                String sex = data.getStringExtra("changesex");
+                user = new Gson().fromJson(sharedPreferences.getString("user", null), User.class);
+                tvSex.setText(user.getSex());
+                Toast.makeText(PersonalChangeMessageActivity.this, "修改成功", Toast.LENGTH_SHORT).show();
+                break;
             case RESULT_OK:
                 Uri uri = data.getData();//图片的uri对象
                 Log.e("uri", uri.toString());
@@ -160,8 +177,9 @@ public class PersonalChangeMessageActivity extends AppCompatActivity {
         protected String doInBackground(String... strings) {
             URL url = null;
             try {
-                String imgName = user.getId()+".jpg";
-                url = new URL(Constant.BASE_IP+Constant.URL_UPLOAD_PIC+"?imgname="+imgName);
+                String imgName = user.getId()+"";
+                url = new URL(Constant.URL_UPLOAD_PIC +imgName);
+                Log.e("url",Constant.URL_UPLOAD_PIC +imgName);
                 HttpURLConnection conn = (HttpURLConnection) url.openConnection();
                 Log.e("21", "99");
                 File file = new File(strings[0]);

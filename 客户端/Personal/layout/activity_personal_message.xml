@@ -74,4 +74,30 @@
             android:layout_width="30dp"
             android:layout_height="30dp" />
     </LinearLayout>
+    <LinearLayout
+        android:layout_marginTop="2dp"
+        android:background="@android:color/white"
+        android:orientation="horizontal"
+        android:id="@+id/ll_change_sex"
+        android:gravity="center_vertical"
+        android:layout_width="match_parent"
+        android:layout_height="50dp">
+        <TextView
+            android:text="性别"
+            android:paddingLeft="10dp"
+            android:textSize="22dp"
+            android:layout_width="0dp"
+            android:layout_weight="1"
+            android:layout_height="wrap_content" />
+        <TextView
+            android:text=""
+            android:textSize="20dp"
+            android:layout_width="wrap_content"
+            android:id="@+id/tv_change_sex"
+            android:layout_height="wrap_content" />
+        <ImageView
+            android:src="@drawable/personal_right_arrow"
+            android:layout_width="30dp"
+            android:layout_height="30dp" />
+    </LinearLayout>
 </LinearLayout>

@@ -47,8 +47,8 @@ public class PersonlSettingsActivity extends AppCompatActivity {
                     intent.setClass(PersonlSettingsActivity.this,PeraonalChangePasswordActivity.class);
                     break;
                 case R.id.ll_about:
-//                    intent = new Intent();
-//                    intent.setClass(PersonlSettingsActivity.this,AboutActivity.class);
+                    intent = new Intent();
+                    intent.setClass(PersonlSettingsActivity.this,AboutActivity.class);
                     break;
                 case R.id.tv_logout:
 //                    sharedPreferences = getSharedPreferences("loginInfo", MODE_PRIVATE);

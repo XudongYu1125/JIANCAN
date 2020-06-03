@@ -33,4 +33,9 @@ public class Constant {
     public static final String URL_CHANGE_USER= BASE_URL + "/user/edit/";
     //删除动态
     public static final String URL_DELETE_TREND= BASE_URL + "/food/delete/";
+    //下载
+    public static final String URL_DOWNLOAD_LIST= BASE_URL + "/car/fd/";
+    //下载删除
+    public static final String URL_DELETE_DOWNLOAD= BASE_URL + "/car/rd/";
+
 }

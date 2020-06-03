@@ -1,7 +1,10 @@
 package com.example.user.jiancan.personal.activityAndFragment;
 
 import android.content.DialogInterface;
+import android.content.SharedPreferences;
 import android.os.Bundle;
+import android.os.Handler;
+import android.os.Message;
 import android.support.annotation.Nullable;
 import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
@@ -14,16 +17,31 @@ import android.widget.ListView;
 import android.widget.Toast;
 
 import com.example.user.jiancan.Constant;
-import com.example.user.jiancan.personal.util.PersonalHistoryAdapter;
-import com.example.user.jiancan.personal.util.PersonalTrendsAdapter;
+import com.example.user.jiancan.personal.entity.TUser;
+import com.example.user.jiancan.personal.entity.User;
+import com.example.user.jiancan.personal.util.PersonalCollectionAdapter;
 import com.example.user.jiancan.R;
 import com.example.user.jiancan.personal.entity.Food;
+import com.example.user.jiancan.personal.util.PersonalHistoryAdapter;
 import com.google.gson.Gson;
+import com.google.gson.GsonBuilder;
+import com.google.gson.JsonArray;
+import com.google.gson.JsonElement;
+import com.google.gson.JsonParser;
 import com.google.gson.reflect.TypeToken;
 
+import org.json.JSONException;
+import org.json.JSONObject;
+
 import java.io.IOException;
+import java.lang.reflect.Constructor;
+import java.lang.reflect.Field;
+import java.lang.reflect.InvocationTargetException;
 import java.lang.reflect.Type;
 import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.Collection;
+import java.util.Iterator;
 import java.util.List;
 
 import okhttp3.Call;
@@ -34,31 +52,37 @@ import okhttp3.Request;
 import okhttp3.RequestBody;
 import okhttp3.Response;
 
-public class PersonalTrendsListActivity extends AppCompatActivity {
+public class PersonalCollectionListActivity extends AppCompatActivity {
     private ListView lvFoods;
-    private PersonalTrendsAdapter adapter;
     private LinearLayout cancel;
     private LinearLayout selectAll;
     private LinearLayout delete;
     private LinearLayout mLlEditBar;//控制下方那一行的显示与隐藏
+    private PersonalCollectionAdapter adapter;
     private List<Food> foods = new ArrayList<>();
-    private OkHttpClient okHttpClient;
     private List<Food> mCheckedData = new ArrayList<>();//将选中数据放入里面
     private SparseBooleanArray stateCheckedMap = new SparseBooleanArray();//用来存放CheckBox的选中状态，true为选中,false为没有选中
     private boolean isSelectedAll = true;//用来控制点击全选，全选和全不选相互切换
+    private OkHttpClient okHttpClient;
+    private User user;
+    private Handler myHandler = new Handler() {
+        public void handleMessage(Message msg) {
+            setAdapter();
+            super.handleMessage(msg);
+        }
+    };
+    private SharedPreferences sharedPreferences;
+
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_personal_trends);
-        Food food = new Food();
-        food.setName("蛋挞");
-        foods.add(food);
+        sharedPreferences = getSharedPreferences("loginInfo", MODE_PRIVATE);
+        //获取和更新个人信息
+        user = new Gson().fromJson(sharedPreferences.getString("user", null), User.class);
         findViews();
-
-        Food food1 = new Food();
-        food1.setName("蛋挞");
-        foods.add(food1);
-        findViews();
+        okHttpClient = new OkHttpClient();
+        requestData();
         setOnclicked();
         setOnListViewItemClickListener();
         setOnListViewItemLongClickListener();
@@ -68,6 +92,14 @@ public class PersonalTrendsListActivity extends AppCompatActivity {
         selectAll.setOnClickListener(new onClicked());
         delete.setOnClickListener(new onClicked());
     }
+
+    private void setAdapter() {
+        adapter = new PersonalCollectionAdapter(foods,user,R.layout.trends_listview_item,PersonalCollectionListActivity.this,stateCheckedMap);
+        lvFoods.setAdapter(adapter);
+    }
+    /**
+     * 点击事件
+     */
     private class onClicked implements View.OnClickListener{
         @Override
         public void onClick(View v) {
@@ -86,14 +118,17 @@ public class PersonalTrendsListActivity extends AppCompatActivity {
                     break;
             }
         }}
+
+    /**
+     * 点击删除按钮时弹出框
+     */
     private void delete() {
         //删除
-        Log.e("persoanl","删除");
         if (mCheckedData.size() == 0) {
-            Toast.makeText(PersonalTrendsListActivity.this, "您还没有选中任何数据！", Toast.LENGTH_SHORT).show();
+            Toast.makeText(PersonalCollectionListActivity.this, "您还没有选中任何数据！", Toast.LENGTH_SHORT).show();
             return;
         }
-        AlertDialog.Builder adBulider=new AlertDialog.Builder(PersonalTrendsListActivity.this);
+        AlertDialog.Builder adBulider=new AlertDialog.Builder(PersonalCollectionListActivity.this);
         //对构造器进行设置
         adBulider.setTitle("提示");
         adBulider.setMessage("您确定要删除您所选中的内容吗？");
@@ -112,13 +147,53 @@ public class PersonalTrendsListActivity extends AppCompatActivity {
         alertDialog.show();
     }
 
-
+    /**
+     * 确定删除
+     */
     private void beSureDelete() {
         foods.removeAll(mCheckedData);//删除选中数据
         setStateCheckedMap(false);//将CheckBox的所有选中状态变成未选中
+        deleteData(mCheckedData);
         mCheckedData.clear();//清空选中数据
         adapter.notifyDataSetChanged();
-        Toast.makeText(PersonalTrendsListActivity.this, "删除成功", Toast.LENGTH_SHORT).show();
+        Toast.makeText(PersonalCollectionListActivity.this, "删除成功", Toast.LENGTH_SHORT).show();
+    }
+
+    /**
+     * 向服务器发送请求删除数据
+     * @param mCheckedData 删除的数据
+     */
+    private void deleteData(List<Food> mCheckedData) {
+        Log.e("persoanl",mCheckedData.toString());
+        Gson gson = new Gson();
+        List deleteFood = new ArrayList<>();
+        for (Food food : mCheckedData){
+            deleteFood.add(food.getId());
+        }
+        Request request = null;
+        if (deleteFood.size()==1){
+            request = new Request.Builder().url(Constant.URL_DELETE_COLLECTION + user.getId()+"/"+deleteFood.get(0)).build();
+        }else{
+            request = new Request.Builder().url(Constant.URL_DELETE_COLLECTIONS + user.getId()+"/"+new Gson().toJson(deleteFood)).build();
+        }
+        final Call call = okHttpClient.newCall(request);
+        //发送请求
+        call.enqueue(new Callback() {
+            @Override
+            //请求失败时回调
+            public void onFailure(Call call, IOException e) {
+                e.printStackTrace();
+            }
+
+            @Override
+            //请求成功后回调
+            public void onResponse(Call call, Response response) throws IOException {
+                //不直接更新界面
+                String str = response.body().string();
+                Log.e("delete",str.toString());
+            }
+
+        });
     }
 
     private void selectAll() {
@@ -172,8 +247,13 @@ public class PersonalTrendsListActivity extends AppCompatActivity {
         });
     }
 
+    /**
+     * 设置选中的得checkbox状态
+     * @param view
+     * @param position
+     */
     private void updateCheckBoxStatus(View view, int position) {
-        PersonalTrendsAdapter.ViewHolder holder = (PersonalTrendsAdapter.ViewHolder) view.getTag();
+        PersonalCollectionAdapter.ViewHolder holder = (PersonalCollectionAdapter.ViewHolder) view.getTag();
         holder.checkBox.toggle();//反转CheckBox的选中状态
         lvFoods.setItemChecked(position, holder.checkBox.isChecked());//长按ListView时选中按的那一项
         stateCheckedMap.put(position, holder.checkBox.isChecked());//存放CheckBox的选中状态
@@ -184,16 +264,12 @@ public class PersonalTrendsListActivity extends AppCompatActivity {
         }
         adapter.notifyDataSetChanged();
     }
-
-
     private void findViews() {
         cancel = findViewById(R.id.ll_personal_cancel);
         selectAll = findViewById(R.id.ll_personal_select_all);
         delete = findViewById(R.id.ll_personal_delete);
         mLlEditBar = findViewById(R.id.ll_edit_bar);
         lvFoods = findViewById(R.id.lv_trends);
-        adapter = new PersonalTrendsAdapter(foods, R.layout.trends_listview_item, PersonalTrendsListActivity.this,stateCheckedMap);
-        lvFoods.setAdapter(adapter);
     }
     /**
      * 设置所有CheckBox的选中状态
@@ -205,24 +281,32 @@ public class PersonalTrendsListActivity extends AppCompatActivity {
         }
     }
     private void requestData() {
-        RequestBody body = RequestBody.create(MediaType.parse("text/plain"),"1");
-        Request request = new Request.Builder().url( Constant.URL_TRENDS).post(body).build();
-        Call call = okHttpClient.newCall(request);
+        Log.e("url",Constant.URL_COLLECTION + user.getId());
+        Request request = new Request.Builder().url(Constant.URL_COLLECTION + user.getId()).build();
+        final Call call = okHttpClient.newCall(request);
+        //发送请求
         call.enqueue(new Callback() {
             @Override
+            //请求失败时回调
             public void onFailure(Call call, IOException e) {
                 e.printStackTrace();
-                Log.e("error",e.getMessage());
             }
 
             @Override
+            //请求成功后回调
             public void onResponse(Call call, Response response) throws IOException {
+                //不直接更新界面
                 String foodListStr = response.body().string();
+                Log.e("foodstr",foodListStr.toString());
                 Type type = new TypeToken<List<Food>>(){}.getType();
-                foods.addAll((List<Food>) new Gson().fromJson(foodListStr,type));
-                Log.e("fans",foods.toString());
+                Gson gson = new GsonBuilder().serializeNulls().create();
+                foods.addAll((List<Food>) gson.fromJson(foodListStr,type));
+                Log.e("food",foods.toString());
+                Message message = new Message();
+                message.obj = "";
+                myHandler.sendMessage(message);
             }
+
         });
     }
-
 }

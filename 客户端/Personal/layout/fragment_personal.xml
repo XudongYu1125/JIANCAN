@@ -7,7 +7,7 @@
         android:id="@+id/ll_personal_message"
         android:background="@drawable/personal_background"
         android:layout_width="match_parent"
-        android:layout_height="150dp">
+        android:layout_height="160dp">
         <ImageView
             android:layout_marginLeft="40dp"
             android:layout_gravity="center"
@@ -36,7 +36,8 @@
             android:layout_height="match_parent">
             <TextView
                 android:gravity="center_horizontal"
-                android:text="3"
+                android:text="0"
+                android:id="@+id/tv_trends_num"
                 android:paddingTop="10dp"
                 android:textSize="20dp"
                 android:layout_weight="1"
@@ -58,7 +59,8 @@
             android:layout_height="match_parent">
             <TextView
                 android:gravity="center_horizontal"
-                android:text="5"
+                android:text="0"
+                android:id="@+id/tv_follow_num"
                 android:paddingTop="10dp"
                 android:textSize="20dp"
                 android:layout_weight="1"
@@ -80,9 +82,10 @@
             android:layout_height="match_parent">
             <TextView
                 android:gravity="center_horizontal"
-                android:text="5"
+                android:text="0"
                 android:paddingTop="10dp"
                 android:textSize="20dp"
+                android:id="@+id/tv_fans_num"
                 android:layout_weight="1"
                 android:layout_width="match_parent"
                 android:layout_height="0dp" />
@@ -145,7 +148,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content" />
     </LinearLayout>
-    <LinearLayout
+    <!--LinearLayout
         android:id="@+id/ll_download"
         android:orientation="horizontal"
         android:gravity="center_vertical"
@@ -167,7 +170,7 @@
             android:layout_marginLeft="180dp"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content" />
-    </LinearLayout>
+    </LinearLayout-->
     <LinearLayout
         android:id="@+id/ll_settings"
         android:orientation="horizontal"
