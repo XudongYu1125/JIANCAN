@@ -1,6 +1,7 @@
-package com.example.user.jiancan.message;
+package com.example.user.jiancan.message.activityAndFragment;
 
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.os.Handler;
 import android.os.Message;
@@ -16,11 +17,14 @@ import android.widget.ListView;
 import android.widget.Toast;
 
 import com.example.user.jiancan.R;
+import com.example.user.jiancan.message.util.MessageAdapter;
 
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+
+import okhttp3.OkHttpClient;
 
 
 public class MessageFragment extends Fragment {
@@ -28,6 +32,17 @@ public class MessageFragment extends Fragment {
     private List<Map<String, Object>> dataSource = new ArrayList<>();
     private ListView listView;
     private MessageAdapter messageAdapter = null;
+    private User user;
+    private OkHttpClient okHttpClient;
+    private SharedPreferences sharedPreferences;
+
+    int i = 0;
+
+    int[] img = {R.drawable.back};
+    String[] names = {"郜三"};
+    String[] date = {"下午 20:02"};
+    String[] content = {"歪暗示啊"};
+
 
     @Nullable
     @Override
@@ -52,14 +67,7 @@ public class MessageFragment extends Fragment {
         return view;
     }
 
-    private void initDatalv() {
-
-        int i = 0;
-
-        int[] img = {R.drawable.back, R.drawable.back};
-        String[] names = {"加人", "二号"};
-        String[] date = {"下午 20：02", "早上 2：30"};
-        String[] content = {"歪暗示啊", "阿双方各接引人"};
+    private void initDatalv1() {
 
         dataSource = new ArrayList<>();
         for (i = 0; i < img.length; ++i) {
@@ -72,4 +80,5 @@ public class MessageFragment extends Fragment {
         }
 
     }
+
 }
