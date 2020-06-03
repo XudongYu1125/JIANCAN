@@ -41,7 +41,7 @@ public class MessageFragment extends Fragment {
     int[] img = {R.drawable.back};
     String[] names = {"郜三"};
     String[] date = {"下午 20:02"};
-    String[] content = {"歪暗示啊"};
+    String[] content = {"11"};
 
 
     @Nullable

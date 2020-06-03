@@ -41,10 +41,10 @@ public class ChatRecordActivity extends AppCompatActivity {
     private SharedPreferences sharedPreferences;
     int i = 0;
 
-    int[] img = {R.drawable.back, R.drawable.back};
-    String[] content = {"结界，我明天上班想吃大盘鸡，整个教程", "谢谢你啦"};
+    int[] img = {R.drawable.back, R.drawable.back, R.drawable.back};
+    String[] content = {"结界，我明天上班想吃大盘鸡，整个教程", "谢谢你啦", "11"};
     // 0->i 1->u
-    int[] who = {0, 1};
+    int[] who = {1, 1, 1};
 
     private Handler handler = new Handler() {
         @Override
@@ -113,23 +113,19 @@ public class ChatRecordActivity extends AppCompatActivity {
 
     }
 
-    public void send1() {
+    public void send1(View view) {
 
         et = findViewById(R.id.con_et);
         input = et.getText().toString();
-        if (input == null) {
-            Message message = new Message();
-            message.what = 1;
-            handler.sendMessage(message);
+        if (input.equals("")) {
+            Toast.makeText(ChatRecordActivity.this, "发送内容不能为空", Toast.LENGTH_SHORT).show();
+            return;
         }
-        int[] img1 = {R.drawable.back, R.drawable.back, R.drawable.oop};
-        String[] content1 = {"结界，我明天上班想吃大盘鸡，整个教程", "谢谢你啦", input};
-        // 0->i 1->u
-        int[] who1 = {0, 0, 1};
+        map1.put("img", R.drawable.oop);
+        map1.put("who", 0);
+        map1.put("content", input);
+        chatRecordAdapter.addItem(map1);
 
-        Message message = new Message();
-        message.what = 0;
-        handler.sendMessage(message);
     }
 
     // 查看个人信息
@@ -146,6 +142,31 @@ public class ChatRecordActivity extends AppCompatActivity {
                 break;
         }
         startActivity(it1);
+    }
+
+    // 返回时向MessageActivity传递数据
+    @Override
+    public void onBackPressed() {
+        Intent i = new Intent();
+        Log.e("返回事件", "123");
+        String content = "1231";
+        String date = "1232";
+        int id = 123;
+        /*
+        for (int j = 0; j < dataSource.size(); j++) {
+            if (dataSource.get(j).getChatrecordid() == newid) {
+                content = dataSource.get(j).getContent();
+                date = dataSource.get(j).getDate();
+                id = dataSource.get(j).getUUID();
+            }
+        }
+        i.putExtra("content", content);
+        i.putExtra("date", date);
+        i.putExtra("UUID", id);
+        */
+
+        ChatRecordActivity.this.setResult(1, i);
+        ChatRecordActivity.this.finish();
     }
 
 }
