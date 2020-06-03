@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    xmlns:android="http://schemas.android.com/apk/res/android">
+    <TextView
+        android:textSize="20dp"
+        android:text="         简餐App是一款旨在通过用户对美食制作教程的分享使用户学到方便、简单、心仪的食物制作方法，节省用户制作食物的时间的APP。"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content" />
+    <TextView
+        android:textSize="20dp"
+        android:layout_width="match_parent"
+        android:text="        用户可以在APP上分享、浏览各类菜式的制作方法。"
+        android:layout_height="wrap_content" />
+</LinearLayout>

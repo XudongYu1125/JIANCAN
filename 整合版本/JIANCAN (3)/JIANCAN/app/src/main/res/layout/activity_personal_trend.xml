@@ -1,0 +1,83 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    android:orientation="vertical"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
+
+        <ListView
+            android:id="@+id/lv_trends"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"></ListView>
+
+        <!--下面的全选和删除控件android:visibility="gone"-->
+        <LinearLayout
+            android:id="@+id/ll_edit_bar"
+            android:layout_width="match_parent"
+            android:layout_height="60dp"
+            android:layout_margin="4dp"
+            android:background="@android:color/white"
+            android:orientation="horizontal"
+            android:translationZ="10dp"
+            android:layout_alignParentBottom="true"
+            android:visibility="gone">
+            <LinearLayout
+                android:id="@+id/ll_personal_cancel"
+                android:gravity="center"
+                android:orientation="vertical"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="1">
+                <ImageView
+                    android:src="@drawable/personal_cancel"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content" />
+                <TextView
+                    android:textSize="20dp"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:gravity="center_vertical"
+                    android:text="取消" />
+            </LinearLayout>
+            <!--LinearLayout
+                android:gravity="center"
+                android:id="@+id/ll_personal_select_all"
+                android:layout_width="0dp"
+                android:orientation="vertical"
+                android:layout_height="wrap_content"
+                android:layout_weight="1">
+                <ImageView
+                    android:src="@drawable/personal_all"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content" />
+                <TextView
+                    android:textSize="20dp"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:gravity="center_vertical"
+                    android:text="全选" />
+            </LinearLayout-->
+
+            <LinearLayout
+                android:orientation="vertical"
+                android:gravity="center"
+                android:id="@+id/ll_personal_delete"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="1">
+
+                <ImageView
+                    android:src="@drawable/personal_delete"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content" />
+                <TextView
+                    android:textSize="20dp"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:gravity="center_vertical"
+                    android:text="删除" />
+            </LinearLayout>
+
+        </LinearLayout>
+
+</RelativeLayout>

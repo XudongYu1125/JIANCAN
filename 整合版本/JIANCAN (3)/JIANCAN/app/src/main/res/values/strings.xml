@@ -1,0 +1,10 @@
+<resources>
+    <string name="app_name">JIANCAN</string>
+    <string name="appbar_scrolling_view_behavior" translatable="false">android.support.design.widget.AppBarLayout$ScrollingViewBehavior</string>
+    <string name="food_detail_text">老铁们嗷，虽然不是同一时间，但同一个撤锁。\n今天我老八再给大家表演一个吃粑粑，奥利给，干了，兄弟们！</string>
+    <string name="food_detail_title">一招鲜，吃遍天！</string>
+    <string name="description">图片</string>
+    <string name="user_name">用户名</string>
+    <string name="comment_text_hint">说点什么吧...</string>
+    <string name="addFriendTip">您还没有好友，快去添加好友吧～</string>
+</resources>

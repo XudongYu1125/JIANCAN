@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout android:layout_height="match_parent"
+    android:layout_width="match_parent"
+    android:background="@color/colorBackground"
+    android:orientation="vertical"
+    xmlns:android="http://schemas.android.com/apk/res/android">
+    <TextView
+        android:layout_marginTop="5dp"
+        android:paddingLeft="20dp"
+        android:background="@android:color/white"
+        android:gravity="center_vertical"
+        android:text="男"
+        android:id="@+id/btn_change_male"
+        android:textSize="20dp"
+        android:layout_width="match_parent"
+        android:layout_height="50dp" />
+    <TextView
+        android:id="@+id/btn_change_female"
+        android:layout_marginTop="2dp"
+        android:paddingLeft="20dp"
+        android:background="@android:color/white"
+        android:gravity="center_vertical"
+        android:text="女"
+        android:textSize="20dp"
+        android:layout_width="match_parent"
+        android:layout_height="50dp" />
+
+</LinearLayout>

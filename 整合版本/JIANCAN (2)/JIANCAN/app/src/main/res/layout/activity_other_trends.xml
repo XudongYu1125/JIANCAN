@@ -1,0 +1,53 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    android:orientation="vertical"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="180dp"
+        android:background="@drawable/other_back">
+
+        <ImageView
+            android:id="@+id/iv_tuser"
+            android:layout_width="80dp"
+            android:layout_height="80dp"
+            android:layout_gravity="center"
+            android:layout_marginLeft="40dp"
+            android:src="@drawable/default_vatar" />
+
+        <TextView
+            android:textColor = "#fff"
+            android:id="@+id/tv_tuser_nickname"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            android:layout_marginLeft="20dp"
+            android:text="用户名"
+            android:textSize="25dp" />
+    </LinearLayout>
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="3dp"
+        android:background="@color/colorBackground"/>
+    <TextView
+        android:id="@+id/tv_tuser_sex"
+        android:gravity="center_vertical"
+        android:layout_marginLeft="20dp"
+        android:text="他的动态"
+        android:textColor="#000"
+        android:textSize="20dp"
+        android:layout_width="match_parent"
+        android:layout_height="40dp"/>
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="3dp"
+        android:background="@color/colorBackground"/>
+
+    <ListView
+        android:id="@+id/lv_other_trend"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"></ListView>
+</LinearLayout>

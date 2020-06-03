@@ -1,0 +1,86 @@
+<LinearLayout android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    android:background="#DCDCDC"
+    xmlns:android="http://schemas.android.com/apk/res/android">
+    <LinearLayout
+        android:background="#778899"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:id="@+id/header_download"
+        android:orientation="horizontal"
+        android:padding="15dp"
+        android:weightSum="10">
+
+        <ImageView
+            android:layout_width="0dp"
+            android:layout_height="40dp"
+            android:layout_weight="1"
+            android:src="@mipmap/back"
+            android:id="@+id/download_back"/>
+        <TextView
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            android:text="下载"
+            android:layout_weight="8"
+            android:textSize="30dp"
+            android:gravity="center"/>
+
+    </LinearLayout>
+    <LinearLayout
+        android:id="@+id/to_download"
+        android:background="#ffffff"
+        android:layout_marginTop="@dimen/dp_10"
+        android:orientation="vertical"
+        android:layout_width="match_parent"
+        android:layout_height="100dp">
+
+        <TextView
+            android:id="@+id/download_food_name"
+            android:layout_width="match_parent"
+            android:layout_height="40dp"
+            android:text="食品名"
+            android:textSize="20dp"
+            android:gravity="center"/>
+
+        <ProgressBar
+            android:max="100"
+            style="?android:attr/progressBarStyleHorizontal"
+            android:id="@+id/download_bar"
+            android:layout_marginStart="15dp"
+            android:layout_marginEnd="15dp"
+            android:layout_marginTop="5dp"
+            android:layout_width="match_parent"
+            android:layout_height="30dp"/>
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="15dp"
+            android:weightSum="4"
+            android:orientation="horizontal">
+            <TextView
+                android:gravity="end|center"
+                android:textSize="13dp"
+                android:layout_width="0dp"
+                android:layout_weight="1"
+                android:layout_height="match_parent"
+                android:text="当前正在下载第"/>
+            <TextView
+                android:id="@+id/count_item"
+                android:textSize="13dp"
+                android:gravity="start|center"
+                android:layout_width="0dp"
+                android:layout_weight="1"
+                android:layout_height="match_parent"
+                android:text="1个"/>
+            <TextView
+                android:id="@+id/percentage"
+                android:layout_width="0dp"
+                android:layout_weight="2"
+                android:layout_height="match_parent"
+                android:gravity="end|center"
+                android:paddingEnd="30dp"/>
+        </LinearLayout>
+
+    </LinearLayout>
+
+</LinearLayout>
