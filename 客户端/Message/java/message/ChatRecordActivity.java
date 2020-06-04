@@ -15,18 +15,22 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import com.example.user.jiancan.R;
-import com.example.user.jiancan.home.entity.SharedItem;
+import com.example.user.jiancan.User;
 import com.example.user.jiancan.message.util.ChatRecordAdapter;
-import com.google.gson.Gson;
 
+import org.json.JSONObject;
+
+import java.io.InputStream;
+import java.io.Serializable;
+import java.net.HttpURLConnection;
+import java.net.URL;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
-/**
- * @author dxn
- */
 public class ChatRecordActivity extends AppCompatActivity {
 
     private List<Map<String, Object>> dataSource = new ArrayList<>();
@@ -39,6 +43,8 @@ public class ChatRecordActivity extends AppCompatActivity {
     private ImageView imageView;
     /// private OkHttpClient okHttpClient;
     private SharedPreferences sharedPreferences;
+    Map<String, Object> map1 = new HashMap<>();
+
     int i = 0;
 
     int[] img = {R.drawable.back, R.drawable.back, R.drawable.back};
@@ -55,16 +61,15 @@ public class ChatRecordActivity extends AppCompatActivity {
                 case 0:
                     chatRecordAdapter = new ChatRecordAdapter(com.example.user.jiancan.message.activityAndFragment.ChatRecordActivity.this, dataSource, R.layout.message_talk);
                     listView.setAdapter(chatRecordAdapter);
+
                     break;
                 case 1:
-                    Log.e("213", "21");
-                    Toast.makeText(com.example.user.jiancan.message.activityAndFragment.ChatRecordActivity.this, "发送不能为空", Toast.LENGTH_SHORT);
+
                     break;
             }
         }
     };
 
-    @Override
     protected void onCreate(Bundle savedInstanceState) {
 
         super.onCreate(savedInstanceState);
@@ -73,6 +78,13 @@ public class ChatRecordActivity extends AppCompatActivity {
         if (getSupportActionBar() != null) {
             getSupportActionBar().hide();
         }
+
+        /*
+        okHttpClient = new OkHttpClient();
+        sharedPreferences = getActivity().getSharedPreferences("loginInfo", MODE_PRIVATE);
+        Gson gson = new GsonBuilder().serializeNulls() .create();
+        user = gson.fromJson(sharedPreferences.getString("user", null), User.class);
+        */
 
         textView = findViewById(R.id.tv_about);
         textView.setText("郜三");
@@ -83,26 +95,13 @@ public class ChatRecordActivity extends AppCompatActivity {
 
     }
 
-
-
-    /**
-     * 分享信息传递
-     * */
-    private void initShareMessage(){
-
-        Intent intent = getIntent ();
-        String jsonStr = intent.getStringExtra ("分享信息");
-        SharedItem sharedItem = new Gson ().fromJson (jsonStr,SharedItem.class);
-
-    }
-
     private void initDatalv1() {
 
         dataSource = new ArrayList<>();
         for (i = 0; i < img.length; ++i) {
             Map<String, Object> map = new HashMap<>();
             map.put("img", img[i]);
-            map.put("who", img[i]);
+            map.put("who", who[i]);
             map.put("content", content[i]);
             dataSource.add(map);
         }
@@ -110,6 +109,10 @@ public class ChatRecordActivity extends AppCompatActivity {
         Message message = new Message();
         message.what = 0;
         handler.sendMessage(message);
+
+    }
+
+    private void initDatalv() {
 
     }
 
@@ -126,6 +129,94 @@ public class ChatRecordActivity extends AppCompatActivity {
         map1.put("content", input);
         chatRecordAdapter.addItem(map1);
 
+    }
+
+    //发送消息
+    /* public void send(View view) {
+        //发送消息
+        Log.e("send", "aa");
+        et = findViewById(R.id.con_et);
+        input = et.getText().toString();
+        if (input.equals("")) {
+            Toast.makeText(.this, "发送内容不能为空", Toast.LENGTH_SHORT).show();
+            return;
+        }
+        new Thread(new Runnable() {
+            @Override
+            public void run() {
+                ChatRecord chatrecord = new ChatRecord();
+
+                SimpleDateFormat sdf = new SimpleDateFormat("YYYY-MM-dd HH:mm:ss");
+                Date dt = new Date();
+                String date = sdf.format(dt.getTime());
+                Log.e("时间哦", date);
+                chatrecord.setContent(input);
+                chatrecord.setDate(date);
+                chatrecord.setSenderid(user.getUserid());
+                chatrecord.setReceiverid(recevieid);
+                chatrecord.setUUID(uuid);
+
+                try {
+                    URL url = new URL(Constant.URL_CHAT_LOCAL + "Add");
+                    //获得连接
+                    HttpURLConnection conn = (HttpURLConnection) url.openConnection();
+                    conn.setRequestMethod("POST");
+                    conn.setDoOutput(true);
+                    conn.setDoInput(true);
+                    conn.connect();
+                    conn.getOutputStream().write(gson.toJson(chatrecord).getBytes("UTF-8"));
+                    conn.getOutputStream().flush();
+
+                    InputStream inputStream = conn.getInputStream();
+                    byte[] buffer = new byte[2048];
+                    int len;
+                    StringBuffer stringBuffer = new StringBuffer();
+                    while ((len = inputStream.read(buffer)) != -1) {
+                        stringBuffer.append(new String(buffer, 0, len));
+                    }
+                    JSONObject response = new JSONObject(stringBuffer.toString());
+                    boolean bl = (Boolean) response.get("isSuccess");
+                    Log.e("成功", bl + "");
+                    if (bl == true) {
+                        Log.e("成功", bl + "");
+                        if (uuid == 0) {
+                            uuid = Integer.parseInt((String) response.get("UUID"));
+                            Log.e("uud=的id", "" + uuid);
+                            chatrecord.setUUID(uuid);
+                        }
+                        String strid = (String) response.get("chatRecordId");
+                        int crid = Integer.parseInt(strid);
+                        chatrecord.setChatrecordid(crid);
+                        newid = crid;
+                        Log.e("这是新的chatrecordid", String.valueOf(newid));
+
+                        Bundle bundle = new Bundle();
+                        Message msg = new Message();
+                        msg.what = 2;
+                        bundle.putSerializable("ChatRecord", (Serializable) chatrecord);
+                        msg.setData(bundle);
+                        handler.sendMessage(msg);
+
+
+                    } else {
+                        Log.e("12321321321", "2");
+                        Message msg = new Message();
+                        msg.what = 1;
+                        handler.sendMessage(msg);
+                    }
+
+                    inputStream.close();
+                    conn.disconnect();
+                } catch (Exception e) {
+                    e.printStackTrace();
+                }
+
+            }
+        }).start();
+    }*/
+
+    public void sendemoji(View view) {
+        //表情
     }
 
     // 查看个人信息
@@ -168,5 +259,4 @@ public class ChatRecordActivity extends AppCompatActivity {
         ChatRecordActivity.this.setResult(1, i);
         ChatRecordActivity.this.finish();
     }
-
 }

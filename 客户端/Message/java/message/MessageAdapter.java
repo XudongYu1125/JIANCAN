@@ -1,4 +1,4 @@
-package com.example.user.jiancan.message;
+package com.example.user.jiancan.message.util;
 
 import android.content.Context;
 import android.view.LayoutInflater;

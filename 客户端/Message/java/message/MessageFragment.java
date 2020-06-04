@@ -17,14 +17,13 @@ import android.widget.ListView;
 import android.widget.Toast;
 
 import com.example.user.jiancan.R;
+import com.example.user.jiancan.User;
 import com.example.user.jiancan.message.util.MessageAdapter;
 
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
-
-import okhttp3.OkHttpClient;
 
 
 public class MessageFragment extends Fragment {
@@ -33,8 +32,8 @@ public class MessageFragment extends Fragment {
     private ListView listView;
     private MessageAdapter messageAdapter = null;
     private User user;
-    private OkHttpClient okHttpClient;
-    private SharedPreferences sharedPreferences;
+    /// private OkHttpClient okHttpClient;
+    private SharedPreferences sharedPreferences ;
 
     int i = 0;
 
@@ -43,13 +42,21 @@ public class MessageFragment extends Fragment {
     String[] date = {"下午 20:02"};
     String[] content = {"11"};
 
-
     @Nullable
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.fragment_message, container, false);
         Log.e("tip", "进入消息页面");
-        initDatalv();
+
+        /*
+        okHttpClient = new OkHttpClient();
+        sharedPreferences = getActivity().getSharedPreferences("loginInfo", MODE_PRIVATE);
+        Gson gson = new GsonBuilder().serializeNulls() .create();
+        user = gson.fromJson(sharedPreferences.getString("user", null), User.class);
+
+         */
+
+        initDatalv1();
 
         listView = view.findViewById(R.id.lv_message);
         messageAdapter = new MessageAdapter(getActivity(), dataSource, R.layout.message_list);
@@ -58,13 +65,16 @@ public class MessageFragment extends Fragment {
         listView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
-                Toast.makeText(getActivity(), "第" + position + "个item", Toast.LENGTH_SHORT).show();
                 Intent intent = new Intent();
                 intent.setClass(getActivity(), ChatRecordActivity.class);
                 startActivity(intent);
             }
         });
         return view;
+    }
+
+    private void initDatalv(){
+
     }
 
     private void initDatalv1() {
